@@ -4,7 +4,7 @@
 
 set -e  # exit on error
 
-OUTFILE=../outfile.zip
+OUTFILE=../100429021_100429005_100548395_100406009_100549459.zip
 [ -e $OUTFILE ] && rm $OUTFILE  # remove if exists already
 
 
@@ -12,19 +12,4 @@ OUTFILE=../outfile.zip
 echo "Compiling the report..."
 
 latexmk -cd -shell-escape -silent -pdf report/report.tex 
-cp report/report.pdf .
-
-
-cd src
-
-# <clean stuff up>
-
-cd ..
-
-# zip it (excluding useless stuff)
-echo "Zipping..."
-zip -r $OUTFILE . -x zip.sh report/\* \*.git\* img/\* *__pycache__/\* .venv/\* build/\* .vscode/\*
-
-# cleanup
-echo "Cleaning up..."
-rm report.pdf
+cp report/report.pdf $OUTFILE
