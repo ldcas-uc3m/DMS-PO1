@@ -9,6 +9,7 @@
 % general config
 
 \graphicspath{{img/}}  % Images folder
+\addbibresource{references.bib}  % bibliography file
 
 \degree{Máster en Ingeniería Informática}
 \subject{Datos Masivos y Encadenados}
@@ -32,20 +33,21 @@
 \begin{document}
     \makecover
 
-    \tableofcontents
+    % \tableofcontents
     % \listoffigures
     % \listoftables
 
     % contenidos
     \begin{report}
-        % \includefrom{parts}{file.tex}
-    \end{report}
 
-    % bibliography
-    % \label{bibliography}
-    % \part{Referencias}
-    % \printbibliography
-    % % \printbibliography[heading=bibintoc,title={Referencias}]  % alternative
+        \includefrom{parts}{validacion.tex}
+
+        % bibliography
+        \newpage
+        \label{bibliography}
+        \printbibliography
+
+    \end{report}
 
     % appendices
     % \begin{appendices}
