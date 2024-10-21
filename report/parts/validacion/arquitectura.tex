@@ -10,9 +10,9 @@ La \figref{esquema} muestra el esquema general del sistema.
 Los datos serán extraídos a través de tres tipos de procesos distintos: \textit{web scraping}, uso de APIs externas, y uso de fuentes de datos estáticos.
 
 \subsubsection*{\textit{Web scraping}}
-Los datos procedentes de páginas web serán extraídos mediante el uso de \textit{web scraping}. Dado que éste es un proceso poco preciso, los datos serán extraídos, filtrados, y agregados en un \textit{data warehouse}, y serán procesados en el momento de la consulta.
+Los datos procedentes de páginas web serán extraídos mediante el uso de \textit{web scraping}. Dado que éste es un proceso poco preciso, debido a la dificultad para obtener resultados acertados o válidos, los datos serán extraídos, filtrados, y agregados en un \textit{data warehouse}, y serán procesados en el momento de la consulta. Este último procesado se realizará de esta manera debido al gran volumen de datos no estructurados que puede suponer el uso de este proceso de extracción.
 
-La tarea de obtención de datos mediante \textit{web scraping} será realizada periódicamente, y la frecuencia variará dependiendo de la fuente y tipo de dato.
+La tarea de obtención de datos mediante \textit{web scraping} será realizada periódicamente, y la frecuencia variará dependiendo de la necesidad, fuente y tipo de dato.
 
 
 \subsubsection*{APIs externas}
@@ -29,5 +29,4 @@ Los datos estáticos obtenidos de las fuentes de datos serán extraídos, transf
 \subsection{Visualizado de la información}
 Para la visualización de la información, se creará una aplicación web. Ésta aplicación tendrá una arquitectura con dos componentes principales: un \textit{frontend}, el cual será el encargado de la interfaz visual de la aplicación, y un servidor \textit{backend}, el cual será el encargado de realizar las consultas a las diferentes fuentes de datos (el \textit{data warehouse}, la API cliente, y la base de datos no relacional).
 
-El \textit{frontend} se comunicará con el \textit{backend} usando un protocolo de tipo \textit{long pooling}, y mediante el uso de objetos JSON.
-% TODO: manual triggering??
+El \textit{frontend} se comunicará con el \textit{backend} usando tanto \textit{manual triggering}, realizando las consultas a través de una petición explícita del usuario, como \textit{long pooling}, lanzando consultas automáticas al \textit{backend} en intervalos largos (de aprox. 40s). El formato de las comunicaciónes será mediante peticiones de tipo REST.
