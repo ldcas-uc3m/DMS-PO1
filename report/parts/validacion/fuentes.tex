@@ -5,8 +5,11 @@ Podemos dividir las distintas fuentes de datos en tres tipos, dependiendo de qu�
 
 \subsection*{\textit{Web scraping}}
 \begin{itemize}
-  \item UFO Stalker \cite{ufostalker-scraping}: Una base de datos proporciona datos sobre avistamientos reportados, además de mostrarlos en un mapa.
   \item MUFON (Mutual UFO Network) \cite{mufon-scraping}: MUFON es una de las redes más grandes de investigación de OVNIs, con una base de datos privada muy extensa con avistamientos por miembros de la asociación. Permite consultar los 20 reportes más recientes.
+  \item NUFORC (National UFO Reporting Center) Dataset \cite{nuforc-scraping}: El National UFO Reporting Center es una página web recolectando y clasificando reportes de avistamientos de OVNIs desde la década de 1950. Permite acceder a su base de datos mediante búsquedas en su web.
+  \item UFO Stalker \cite{ufostalker-scraping}: Recolecta reportes de avistamientos en su base de datos, que se puede ver en su web o mostrar en un mapa.
+  \item SatNogs Data \cite{satnogs-scraping}: Aplicación web permitiendo un acceso a una base de datos unificada y colaborativa, con datos de localización y transmisiones de objetos espaciales artificiales (satélites y naves espaciales)
+  \item SETI (Search for Extraterrestrial Intelligence) Data \cite{seti-scraping}: SETI almacena datos relacionados con la vida extraterrestre recogidos por satélites, permitiendo buscar y descargar estos datos de gran tamaño en su aplicación web.
   \item ESA Sky Data Hub \cite{esa-sky-scraping}: Plataforma de datos espaciales que incluye imágenes del espacio profundo
   \item NASA Astronomy Picture of the Day (APOD) Random \cite{nasa-apod-scraping}: Acceso aleatorio a la colección de imágenes astronómicas diarias proporcionadas por la NASA.
 \end{itemize}
@@ -14,21 +17,28 @@ Podemos dividir las distintas fuentes de datos en tres tipos, dependiendo de qu�
 
 \subsection*{Datos estáticos}
 \begin{itemize}
-  \item NUFORC (National UFO Reporting Center) Dataset \cite{nuforc-data}: El National UFO Reporting Center es una base de datos que contiene reportes de avistamientos de OVNIs desde la década de 1950.
-  \item SETI (Search for Extraterrestrial Intelligence) Data \cite{seti-open-data}: SETI ofrece conjuntos de datos de búsqueda de inteligencia extraterrestre, con datasets disponibles para descarga.
+  \item ESA NEO (Near Earth Object) Database \cite{esa-neo-db}: Esta base de datos de la ESA se actualiza periódicamente para mostrar los NEO más recientes o más próximos en el tiempo. Los datos mostrados en la web pueden descargarse en varios formatos de archivo distintos.
+  \item NASA NEOS (Near Earth Object Studies) Database \cite{nasa-cneos-db}: Esta base de datos de la NASA se actualiza periódicamente para incluir NEOs o actualizar datos de los NEO registrados. Los datos se pueden filtrar de varias maneras en la web antes de poder descargarse en varios formatos de archivo distintos.
+  \item NASA Fireballs Database \cite{nasa-fireballs-db}: Esta base de datos de la NASA se actualiza periódicamente para incluir bolas de fuego o bólidos detectados por sensores de la NASA. Los datos se pueden descargarse en varios formatos de archivo distintos.
+  \item NASA Meteorite Database \cite{nasa-meteorite-db}: Esta base de datos de la NASA se actualiza muy poco, para incluir nuevos impactos de meteorito registrados. Los datos se pueden descargarse en varios formatos de archivo distintos.
+  
   \item ESA (European Space Agency) Open Data \cite{esa-open-db}: La ESA proporciona acceso abierto a sets de datos que incluyen imágenes satelitales, mediciones climáticas, y muchos otros tipos de datos espaciales.
-  \item SatNogs Dataset \cite{satnogs-db}: Base de datos unificada de localización y transmisiones de objetos espaciales artificiales (satélites y naves espaciales)
 \end{itemize}
 
 
 \subsection*{APIs externas}
 \begin{itemize}
-  \item NASA open-access APIs\cite{nasa-open-api}:La NASA ofrece una variedad de APIs que cubren datos astronómicos, imágenes, videos y mucho más.
-  \item SatNogs API \cite{satnogs-api}: API para extraer datos de la base de datos unificada de localización y transmisiones de objetos espaciales artificiales (satélites y naves espaciales)
+  \item SatNogs API \cite{satnogs-api}: API para extraer información de la base de datos unificada y colaborativa, con datos de localización y transmisiones de objetos espaciales artificiales (satélites y naves espaciales)
+  \item SETI (Search for Extraterrestrial Intelligence) API \cite{seti-api}: SETI almacena datos relacionados con la vida extraterrestre recogidos por satélites, permitiendo buscar y descargar estos datos de gran tamaño mediante una API.
   \item NY2O API \cite{ny2o-api}: API de accesos limitados (1000 peticiones/h) sobre objetos espaciales para extraer su información TLE\footurl{https://en.wikipedia.org/wiki/Two-line\_element\_set}, o predecir su posición futura o localizaciones terrestres que sobrevolará.
+  
   \item Google Maps API \cite{google-maps-api}: APIs de mapas de Google que te permite renderizar mapas interactivos con coordenadas geográficas.
+  \item Google Maps Geocoding API \cite{google-maps-geocoding-api}: API de Google Maps utilizada para convertir nombres de lugares en coordenadas gegográficas.
   \item Mapbox APIs \cite{mapbox-api}: Proporciona mapas interactivos y herramientas de geolocalización personalizables, útiles para representar los datos.
+  
   \item NASA Image and Video Library API \cite{nasa-media-library-api}: Proporciona acceso a una vasta colección de imágenes, videos y audios relacionados con misiones espaciales de la NASA.
   \item NASA Astronomy Picture of the Day (APOD) API \cite{nasa-apod-api}: Acceso a la colección de imágenes astronómicas diarias proporcionadas por la NASA.
   \item Sentinel Hub API \cite{sentinel-api}: Acceso a la colección de imágenes satelitales terrestres de los satélites Sentinel de la ESA.
+  
+  \item NASA open-access APIs\cite{nasa-open-api}:La NASA ofrece una variedad de APIs que cubren datos astronómicos, imágenes, videos y mucho más.
 \end{itemize}
