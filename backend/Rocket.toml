@@ -1,0 +1,3 @@
+[default.databases.db]
+url = "mongodb://root:example@mongo:27017"  # for docker container
+# url = "mongodb://root:example@localhost:27017"  # for local

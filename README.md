@@ -50,3 +50,24 @@ Se pide:
 ## Instalación y ejecución
 
 
+
+## Uso
+Levantar mongo express y mongo:
+```
+docker compse up -d mongo-express
+```
+
+Levantar backend:
+```
+docker compse up -d backend
+```
+
+Tirar abajo:
+```
+docker compse down
+```
+
+Fuck it, I'm out
+```
+docker compse down -v
+```
