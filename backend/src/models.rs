@@ -34,9 +34,9 @@ pub struct AstronomicalEvent {
     pub time: u32,  // unix timestamp (s)
     pub distance_nominal: f64,  // au
     pub distance_minimum: Option<f64>,  // au
-    pub velocity_relative: f64,
-    pub velocity_infinity: f64,
+    pub velocity_relative: f64,  // kps
+    pub velocity_infinity: Option<f64>,  // kps
     pub magnitude: f64,
-    pub diameter: Vec<f64>,  // [<min>, <max>]
-    pub rarity: i32,
+    pub diameter: Vec<f64>,  // [<min>, <max>] (m)
+    pub rarity: Option<i32>,
 }

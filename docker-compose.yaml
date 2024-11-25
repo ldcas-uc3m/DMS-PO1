@@ -1,4 +1,4 @@
-name: dms-po1
+name: jose
 
 services:
   mongo:
@@ -7,7 +7,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: "bread"
+      MONGO_INITDB_DATABASE: "jose"
     volumes:
       - mongodb:/data/db
       - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro

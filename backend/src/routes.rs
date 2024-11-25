@@ -2,7 +2,7 @@ use crate::{db::MainDatabase, models::{AstronomicalEvent, Sighting}};
 use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
 use rocket::{
-    delete, futures::TryStreamExt, get, http::Status, post, put, response::status,
+    futures::TryStreamExt, get, http::Status, post, response::status,
     serde::json::Json,
 };
 use rocket_db_pools::Connection;
@@ -12,7 +12,7 @@ use serde_json::{json, Value};
 
 #[get("/")]
 pub fn index() -> Json<Value> {
-    Json(json!({"status": "It is time to make some bread!!!"}))
+    Json(json!({"status": "Welcome to J.O.S.E."}))
 }
 
 

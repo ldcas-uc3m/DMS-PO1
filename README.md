@@ -47,19 +47,17 @@ Se pide:
 
 
 
-## Instalación y ejecución
-
-
-
 ## Uso
-Levantar mongo express y mongo:
-```
-docker compse up -d mongo-express
-```
+Requiere tener [docker](https://docker.com) instalado.
 
-Levantar backend:
+Levantar backend ([localhost:8000](localhost:8000)):
 ```
 docker compse up -d backend
+```
+
+Levantar backend ([localhost:8000](localhost:8000)) y mongo-express ([localhost:8081](localhost:8081)):
+```
+docker compse up -d backend mongo-express
 ```
 
 Tirar abajo:
