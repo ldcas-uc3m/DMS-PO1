@@ -28,6 +28,7 @@ function App() {
         zIndex="10"
         p="4"
         gap="4"
+        pointerEvents="none"
       >
         {showElements && (
           <ObjectList
@@ -35,9 +36,15 @@ function App() {
             sightings={sightings}
             events={events}
             setCurrentElement={setCurrentElement}
+            pointerEvents="auto"
           />
         )}
-        <Button size="sm" rounded="xl" onClick={() => setShowElements((s) => !s)}>
+        <Button
+          size="sm"
+          rounded="xl"
+          pointerEvents="auto"
+          onClick={() => setShowElements((s) => !s)}
+        >
           Show Elements
         </Button>
       </Flex>
@@ -51,11 +58,19 @@ function App() {
         p="4"
         gap="4"
         justify="flex-end"
+        pointerEvents="none"
       >
-        <Button size="sm" rounded="xl" onClick={() => setShowDetails((s) => !s)}>
+        <Button
+          size="sm"
+          rounded="xl"
+          pointerEvents="auto"
+          onClick={() => setShowDetails((s) => !s)}
+        >
           Show Details
         </Button>
-        {showDetails && <ObjectDetails w="40%" element={currentElement} />}
+        {showDetails && (
+          <ObjectDetails w="40%" element={currentElement} pointerEvents="auto" />
+        )}
       </Flex>
     </Box>
   );

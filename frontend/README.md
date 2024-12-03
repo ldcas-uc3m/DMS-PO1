@@ -1,13 +1,20 @@
-# React + Vite
+# Getting started
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Mapbox
 
-Currently, two official plugins are available:
+For the mapbox-gl integration, a Mapbbox-API token is needed. If you don’t yet have an account, create one and get your API token from within your account (https://account.mapbox.com/).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Afterwards create a file called `.env.local` in the root of the `frontend` folder with the following content:
 
-## Setup
+```
+VITE_MAPBOX_ACCESS_TOKEN=<your-mapbox-access-token-here>
+```
+
+Mapbox offers 50.000 page loads per month for free.
+
+Note: Using React.StrictMode, every component is mounted twice. This is intended behavior and cannot be changed easily. This leads to each page load counting as two page loads for the Mapbox-API.
+
+## Commands
 
 | Command            | Action                                       |
 | :----------------- | :------------------------------------------- |
