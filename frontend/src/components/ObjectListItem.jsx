@@ -1,12 +1,19 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
-const ObjectListItem = ({ ...otherProps }) => {
+const ObjectListItem = ({ item, ...otherProps }) => {
+  if (!item) {
+    return <></>;
+  }
   return (
-    <Flex bg="black" rounded="lg" h="32" align="center" justify="center" {...otherProps}>
-      <Text textStyle="xl" fontWeight="bold">
-        Item quick info
+    <Box direction="column" bg="black" rounded="lg" p="2" {...otherProps}>
+      <Text fontWeight="bold">{item.summary}</Text>
+      <Text fontWeight="light">
+        {item.time_event}, {item.location_aprox}
       </Text>
-    </Flex>
+      <Text fontSize="sm" fontStyle="italic">
+        {item.source}
+      </Text>
+    </Box>
   );
 };
 

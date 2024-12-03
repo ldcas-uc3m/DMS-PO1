@@ -1,7 +1,17 @@
 import { Box, Flex, Heading, Separator } from '@chakra-ui/react';
 import ObjectListItem from './ObjectListItem';
 
-const ObjectList = ({ ...otherProps }) => {
+const ListItems = ({ items }) => {
+  return (
+    <>
+      {items.map((item, index) => (
+        <ObjectListItem item={item} mb={index < items.length - 1 ? '2' : null} />
+      ))}
+    </>
+  );
+};
+
+const ObjectList = ({ sightings, events, ...otherProps }) => {
   return (
     <Flex
       direction="column"
@@ -14,23 +24,13 @@ const ObjectList = ({ ...otherProps }) => {
       <Flex direction="column" flex="1 1 0" gap="2">
         <Heading alignSelf="center">Sightings</Heading>
         <Box overflowY="auto" flex="1 1 0">
-          <ObjectListItem mb="2" />
-          <ObjectListItem mb="2" />
-          <ObjectListItem mb="2" />
-          <ObjectListItem mb="2" />
-          <ObjectListItem mb="2" />
-          <ObjectListItem />
+          <ListItems items={sightings} />
         </Box>
       </Flex>
       <Flex direction="column" flex="1 1 0" gap="2">
         <Heading alignSelf="center">Astronomical Events</Heading>
         <Box overflowY="auto" flex="1 1 0">
-          <ObjectListItem mb="2" />
-          <ObjectListItem mb="2" />
-          <ObjectListItem mb="2" />
-          <ObjectListItem mb="2" />
-          <ObjectListItem mb="2" />
-          <ObjectListItem />
+          <ListItems items={events} />
         </Box>
       </Flex>
     </Flex>
