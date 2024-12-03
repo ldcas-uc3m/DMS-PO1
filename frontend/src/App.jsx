@@ -79,7 +79,7 @@ function App() {
 export default App;
 
 function loadElements(setSightings, setEvents) {
-  // load data from database and already make transformations into readable data where necessary.
+  // TODO load data from database and already make transformations into readable data where necessary.
 
   const sightings = [
     {
@@ -143,7 +143,7 @@ function loadElements(setSightings, setEvents) {
       summary: 'The summary field is not defined officially for events...',
       description: 'Neither is the description field officially devined for events!',
       source: 'source',
-      time_event: '03.12.2024 16:11', //deviated from currently defined format here! Currently just called time
+      time_event: '03.12.2024 16:11', // deviated from currently defined format here! Currently just called time
       distance_nominal: '1 AU',
       distance_minimum: '1 AU',
       velocity_relative: '1 kps',
