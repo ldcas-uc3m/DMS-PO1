@@ -1,17 +1,22 @@
 import { Box, Flex, Heading, Separator } from '@chakra-ui/react';
 import ObjectListItem from './ObjectListItem';
 
-const ListItems = ({ items }) => {
+const ListItems = ({ items, setCurrentElement }) => {
   return (
     <>
       {items.map((item, index) => (
-        <ObjectListItem item={item} mb={index < items.length - 1 ? '2' : null} />
+        <ObjectListItem
+          item={item}
+          mb={index < items.length - 1 ? '2' : null}
+          onClick={() => setCurrentElement(item)}
+          cursor="pointer"
+        />
       ))}
     </>
   );
 };
 
-const ObjectList = ({ sightings, events, ...otherProps }) => {
+const ObjectList = ({ sightings, events, setCurrentElement, ...otherProps }) => {
   return (
     <Flex
       direction="column"
@@ -24,13 +29,13 @@ const ObjectList = ({ sightings, events, ...otherProps }) => {
       <Flex direction="column" flex="1 1 0" gap="2">
         <Heading alignSelf="center">Sightings</Heading>
         <Box overflowY="auto" flex="1 1 0">
-          <ListItems items={sightings} />
+          <ListItems items={sightings} setCurrentElement={setCurrentElement} />
         </Box>
       </Flex>
       <Flex direction="column" flex="1 1 0" gap="2">
         <Heading alignSelf="center">Astronomical Events</Heading>
         <Box overflowY="auto" flex="1 1 0">
-          <ListItems items={events} />
+          <ListItems items={events} setCurrentElement={setCurrentElement} />
         </Box>
       </Flex>
     </Flex>

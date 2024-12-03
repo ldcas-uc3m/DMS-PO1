@@ -1,11 +1,10 @@
 import { Flex, Text } from '@chakra-ui/react';
 
-const ObjectDetails = ({ ...otherProps }) => {
+const ObjectDetails = ({ element, ...otherProps }) => {
   return (
     <Flex bg="bg.emphasized" rounded="xl" align="center" justify="center" {...otherProps}>
-      <Text textStyle="xl" fontWeight="bold" textAlign="center">
-        Detailed information about currently selected item
-      </Text>
+      {!element && <Text fontStyle="italic">No element selected</Text>}
+      {element && <Text>{element.summary}</Text>}
     </Flex>
   );
 };

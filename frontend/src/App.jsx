@@ -14,6 +14,8 @@ function App() {
     loadElements(setSightings, setEvents);
   }, []);
 
+  const [currentElement, setCurrentElement] = useState(null);
+
   return (
     <Box h="100vh" position="relative">
       <Map position="absolute" top="0" left="0" width="100%" height="100%" />
@@ -27,7 +29,14 @@ function App() {
         p="4"
         gap="4"
       >
-        {showElements && <ObjectList w="40%" sightings={sightings} events={events} />}
+        {showElements && (
+          <ObjectList
+            w="40%"
+            sightings={sightings}
+            events={events}
+            setCurrentElement={setCurrentElement}
+          />
+        )}
         <Button size="sm" rounded="xl" onClick={() => setShowElements((s) => !s)}>
           Show Elements
         </Button>
@@ -46,7 +55,7 @@ function App() {
         <Button size="sm" rounded="xl" onClick={() => setShowDetails((s) => !s)}>
           Show Details
         </Button>
-        {showDetails && <ObjectDetails w="40%" />}
+        {showDetails && <ObjectDetails w="40%" element={currentElement} />}
       </Flex>
     </Box>
   );
