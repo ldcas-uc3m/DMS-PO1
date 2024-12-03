@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import Map from './components/Map';
 import ObjectList from './components/ObjectList';
@@ -7,6 +7,15 @@ import ObjectDetails from './components/ObjectDetails';
 function App() {
   const [showElements, setShowElements] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  
+  const [sightings, setSightings] = useState(null);
+  const [events, setEvents] = useState(null);
+  useEffect(
+    () => {
+      loadElements(setSightings, setEvents)
+    },
+    []
+  )
 
   return (
     <Box h="100vh" position="relative">
@@ -47,3 +56,87 @@ function App() {
 }
 
 export default App;
+
+function loadElements(setSightings, setEvents) {
+  // load data from database and already make transformations into readable data where necessary.
+
+  const sightings = [
+    {
+      source: 'source',
+      time_event: '03.12.2024 16:12',
+      time_post: '03.12.2024 16:25',
+      location_aprox: 'Madrid',
+      location_precise: [40.416728, -3.70329],
+      distance: '1 m',
+      altitude: '1 m',
+      shape: 'shape',
+      size: 'size',
+      features: 'features',
+      summary: 'summary',
+      description: 'description',
+      explanation: 'explanation',
+      num_observers: 'num_observers',
+      media: [
+        'www.google.de',
+        'www.uc3m.es'
+      ]
+    },
+    {
+      source: 'source',
+      time_event: '03.12.2024 16:12',
+      time_post: '03.12.2024 16:25',
+      location_aprox: 'Leganés',
+      location_precise: [40.331951,-3.768654],
+      distance: '1 m',
+      altitude: '1 m',
+      shape: 'shape',
+      size: 'size',
+      features: 'features',
+      summary: 'summary',
+      description: 'description',
+      explanation: 'explanation',
+      num_observers: 'num_observers',
+      media: [
+        'www.google.de',
+        'www.uc3m.es'
+      ]
+    },
+    {
+      source: 'source',
+      time_event: '03.12.2024 16:12',
+      time_post: '03.12.2024 16:25',
+      location_aprox: 'Getafe',
+      location_precise: [40.30825,-3.732393],
+      distance: '1 m',
+      altitude: '1 m',
+      shape: 'shape',
+      size: 'size',
+      features: 'features',
+      summary: 'summary',
+      description: 'description',
+      explanation: 'explanation',
+      num_observers: 'num_observers',
+      media: [
+        'www.google.de',
+        'www.uc3m.es'
+      ]
+    }
+  ]
+
+  const events = [
+    {
+      source: 'source',
+      time: '03.12.2024 16:11',
+      distance_nominal: '1 AU',
+      distance_minimum: '1 AU',
+      velocity_relative: '1 kps',
+      velocity_infinity: '1 kps',
+      magnitude: '1',
+      diameter: ['1 m', '2 m'],
+      rarity: 0
+    }
+  ]
+
+  setSightings(sightings)
+  setEvents(events)
+}
