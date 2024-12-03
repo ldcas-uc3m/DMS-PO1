@@ -114,7 +114,7 @@ function loadElements(setSightings, setEvents) {
       shape: 'shape',
       size: 'size',
       features: 'features',
-      summary: 'This is the summary of sighting 3.',
+      summary: 'This is the summary of I think we need titles.',
       description:
         'This on the other hand is a whole description of everything that happened. A lot of little details mentioned here and there and overall just quite a bit more text.',
       explanation: 'explanation',
@@ -126,6 +126,7 @@ function loadElements(setSightings, setEvents) {
   const events = [
     {
       summary: 'The summary field is not defined officially for events...',
+      description: 'Neither is the description field officially devined for events!',
       source: 'source',
       time_event: '03.12.2024 16:11', //deviated from currently defined format here! Currently just called time
       distance_nominal: '1 AU',

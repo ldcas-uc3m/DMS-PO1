@@ -1,11 +1,36 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Box, Text, Heading } from '@chakra-ui/react';
 
 const ObjectDetails = ({ element, ...otherProps }) => {
+  let summary, description, otherKeys;
+  if (element) {
+    ({ summary, description, ...otherKeys } = element); //summary isn't used later on purpose
+  }
+
   return (
-    <Flex bg="bg.emphasized" rounded="xl" align="center" justify="center" {...otherProps}>
-      {!element && <Text fontStyle="italic">No element selected</Text>}
-      {element && <Text>{element.summary}</Text>}
-    </Flex>
+    <Box bg="bg.emphasized" rounded="xl" padding="2" overflowY="auto" {...otherProps}>
+      {!element && (
+        <Flex w="100%" h="100%" align="center" justify="center">
+          <Text fontStyle="italic">No element selected</Text>
+        </Flex>
+      )}
+      {element && (
+        <>
+          <Heading>Here we could use a title</Heading>
+          <Text>{description}</Text>
+          <Heading>Other information</Heading>
+          <Box>
+            {Object.keys(otherKeys)
+              .sort()
+              .map((key) => (
+                <Text>
+                  <b>{key}: </b>
+                  {otherKeys[key]}
+                </Text>
+              ))}
+          </Box>
+        </>
+      )}
+    </Box>
   );
 };
 
