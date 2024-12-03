@@ -22,7 +22,7 @@ const ObjectDetails = ({ element, ...otherProps }) => {
             {Object.keys(otherKeys)
               .sort()
               .map((key) => (
-                <Text>
+                <Text key={key}>
                   <b>{key}: </b>
                   {otherKeys[key]}
                 </Text>

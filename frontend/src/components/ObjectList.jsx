@@ -10,6 +10,7 @@ const ListItems = ({ items, setCurrentElement }) => {
           mb={index < items.length - 1 ? '2' : null}
           onClick={() => setCurrentElement(item)}
           cursor="pointer"
+          key={index} // should be replaced by a proper element-specific id
         />
       ))}
     </>
