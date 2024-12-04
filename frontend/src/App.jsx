@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import Map from './components/Map';
@@ -15,11 +15,39 @@ function App() {
     loadElements(setSightings, setEvents);
   }, []);
 
+  const mapRef = useRef(); // mapRef.current references the Mapbox map after initialization by the Map component
+
   const [currentElement, setCurrentElement] = useState(null);
+  useEffect(() => {
+    if (currentElement) {
+      setShowDetails(true);
+      if (mapRef.current) {
+        if (currentElement.location_precise) {
+          mapRef.current.flyTo({
+            center: currentElement.location_precise,
+            zoom: 11,
+          });
+        } else {
+          mapRef.current.flyTo({
+            zoom: 2,
+          });
+        }
+      }
+    } else {
+      setShowDetails(false);
+    }
+  }, [currentElement]);
 
   return (
     <Box h="100vh" position="relative">
-      <Map position="absolute" top="0" left="0" width="100%" height="100%" />
+      <Map
+        position="absolute"
+        top="0"
+        left="0"
+        width="100%"
+        height="100%"
+        mapRef={mapRef}
+      />
       <Flex
         position="absolute"
         top="0"
@@ -101,7 +129,7 @@ function loadElements(setSightings, setEvents) {
       time_event: '03.12.2024 16:12',
       time_post: '03.12.2024 16:25',
       location_aprox: 'Madrid',
-      location_precise: [40.416728, -3.70329],
+      location_precise: [-3.70329, 40.416728],
       distance: '1 m',
       altitude: '1 m',
       shape: 'shape',
@@ -119,7 +147,7 @@ function loadElements(setSightings, setEvents) {
       time_event: '03.12.2024 16:12',
       time_post: '03.12.2024 16:25',
       location_aprox: 'Leganés',
-      location_precise: [40.331951, -3.768654],
+      location_precise: [-3.768654, 40.331951],
       distance: '1 m',
       altitude: '1 m',
       shape: 'shape',
@@ -137,7 +165,7 @@ function loadElements(setSightings, setEvents) {
       time_event: '03.12.2024 16:12',
       time_post: '03.12.2024 16:25',
       location_aprox: 'Getafe',
-      location_precise: [40.30825, -3.732393],
+      location_precise: [-3.732393, 40.30825],
       distance: '1 m',
       altitude: '1 m',
       shape: 'shape',

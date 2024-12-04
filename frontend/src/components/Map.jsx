@@ -2,8 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-const Map = ({ ...otherProps }) => {
-  const mapRef = useRef();
+const Map = ({ mapRef, ...otherProps }) => {
   const mapContainerRef = useRef();
 
   useEffect(() => {
