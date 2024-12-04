@@ -66,6 +66,7 @@ function App() {
             flex="1"
             sightings={sightings}
             events={events}
+            currentElement={currentElement}
             setCurrentElement={setCurrentElement}
             pointerEvents="auto"
           />
