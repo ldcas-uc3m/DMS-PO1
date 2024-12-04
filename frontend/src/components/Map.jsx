@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
+import vscTelescope from '../assets/vsc-telescope.svg';
 
 const Map = ({ currentElement, setCurrentElement, sightings, ...otherProps }) => {
   const mapRef = useRef();
@@ -34,13 +35,13 @@ const Map = ({ currentElement, setCurrentElement, sightings, ...otherProps }) =>
 };
 
 function setupMap(mapContainerRef, mapRef, setMapLoaded) {
-  console.warn('Using a Mapbox map load!');
-  mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
   mapRef.current = new mapboxgl.Map({
+    accessToken: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
     container: mapContainerRef.current,
     style: 'mapbox://styles/mapbox/dark-v11',
     center: [-3.70329, 40.416728],
     zoom: 11,
+    crossSourceCollisions: false,
   });
   mapRef.current.on('load', () => setMapLoaded(true));
 
@@ -59,6 +60,10 @@ function setupMap(mapContainerRef, mapRef, setMapLoaded) {
 }
 
 function loadMarkers(mapRef, sightings) {
+  let img = new Image(35, 35);
+  img.onload = () => mapRef.current.addImage('sightings-marker', img);
+  img.src = vscTelescope;
+
   mapRef.current.addSource('sightings', {
     type: 'geojson',
     data: {
@@ -80,19 +85,19 @@ function loadMarkers(mapRef, sightings) {
 
   mapRef.current.addLayer({
     id: 'sightings',
-    type: 'circle',
+    type: 'symbol',
     source: 'sightings',
-    paint: {
-      'circle-radius': 8,
-      'circle-stroke-width': 2,
-      'circle-color': 'red',
-      'circle-stroke-color': 'white',
+    layout: {
+      'icon-image': 'sightings-marker',
     },
   });
 
   return () => {
-    mapRef.current.removeSource('sightings');
-    mapRef.current.removeLayer('sightings');
+    if (mapRef.current) {
+      mapRef.current.removeSource('sightings');
+      mapRef.current.removeLayer('sightings');
+      mapRef.current.removeImage('sightings-marker');
+    }
   };
 }
 
@@ -112,7 +117,9 @@ function addOnClickToMap(mapRef, sightings, setCurrentElement) {
 
   mapRef.current.on('click', onClickFunction);
 
-  return () => mapRef.current.off('click', onClickFunction);
+  return () => {
+    if (mapRef.current) mapRef.current.off('click', onClickFunction);
+  };
 }
 
 function updateViewport(mapRef, currentElement) {
