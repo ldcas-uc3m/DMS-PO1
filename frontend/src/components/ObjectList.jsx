@@ -4,11 +4,11 @@ import ObjectListItem from './ObjectListItem';
 const ListItems = ({ items, setCurrentElement }) => {
   return (
     <>
-      {items.map((item, index) => (
+      {Object.keys(items).map((key, index, keys) => (
         <ObjectListItem
-          item={item}
-          mb={index < items.length - 1 ? '2' : null}
-          onClick={() => setCurrentElement(item)}
+          item={items[key]}
+          mb={index < keys.length - 1 ? '2' : null}
+          onClick={() => setCurrentElement(items[key])}
           cursor="pointer"
           key={index} // TODO should be replaced by a proper element-specific id
         />

@@ -16,6 +16,7 @@ function App() {
   }, []);
 
   const [currentElement, setCurrentElement] = useState(null);
+  const setCurrentElementById = (elementId) => setCurrentElement({...events, ...sightings}[elementId])
   useEffect(() => {
     if (currentElement) {
       setShowDetails(true);
@@ -109,8 +110,9 @@ export default App;
 function loadElements(setSightings, setEvents) {
   // TODO load data from database and already make transformations into readable data where necessary.
 
-  const sightings = [
-    {
+  const sightings = {
+    sighting1: {
+      id: 'sighting1',
       source: 'source',
       timeEvent: '03.12.2024 16:12',
       timePost: '03.12.2024 16:25',
@@ -128,7 +130,8 @@ function loadElements(setSightings, setEvents) {
       numObservers: 'num_observers',
       media: ['www.google.de', 'www.uc3m.es'],
     },
-    {
+    sighting2: {
+      id: 'sighting2',
       source: 'source',
       timeEvent: '03.12.2024 16:12',
       timePost: '03.12.2024 16:25',
@@ -146,7 +149,8 @@ function loadElements(setSightings, setEvents) {
       numObservers: 'num_observers',
       media: ['www.google.de', 'www.uc3m.es'],
     },
-    {
+    sighting3: {
+      id: 'sighting3',
       source: 'source',
       timeEvent: '03.12.2024 16:12',
       timePost: '03.12.2024 16:25',
@@ -164,10 +168,11 @@ function loadElements(setSightings, setEvents) {
       numObservers: 'num_observers',
       media: ['www.google.de', 'www.uc3m.es'],
     },
-  ];
+  };
 
-  const events = [
-    {
+  const events = {
+    event1: {
+      id: 'event1',
       summary: 'The summary field is not defined officially for events...',
       description: 'Neither is the description field officially devined for events!',
       source: 'source',
@@ -180,7 +185,7 @@ function loadElements(setSightings, setEvents) {
       diameter: ['1 m', '2 m'],
       rarity: 0,
     },
-  ];
+  };
 
   setSightings(sightings);
   setEvents(events);
