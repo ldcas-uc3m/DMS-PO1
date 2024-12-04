@@ -15,24 +15,10 @@ function App() {
     loadElements(setSightings, setEvents);
   }, []);
 
-  const mapRef = useRef(); // mapRef.current references the Mapbox map after initialization by the Map component
-
   const [currentElement, setCurrentElement] = useState(null);
   useEffect(() => {
     if (currentElement) {
       setShowDetails(true);
-      if (mapRef.current) {
-        if (currentElement.locationPrecise) {
-          mapRef.current.flyTo({
-            center: currentElement.locationPrecise,
-            zoom: 11,
-          });
-        } else {
-          mapRef.current.flyTo({
-            zoom: 2,
-          });
-        }
-      }
     } else {
       setShowDetails(false);
     }
@@ -46,7 +32,7 @@ function App() {
         left="0"
         width="100%"
         height="100%"
-        mapRef={mapRef}
+        currentElement={currentElement}
       />
       <Flex
         position="absolute"

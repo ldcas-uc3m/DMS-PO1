@@ -2,7 +2,8 @@ import { Box } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-const Map = ({ mapRef, ...otherProps }) => {
+const Map = ({ currentElement, ...otherProps }) => {
+  const mapRef = useRef();
   const mapContainerRef = useRef();
 
   useEffect(() => {
@@ -19,6 +20,21 @@ const Map = ({ mapRef, ...otherProps }) => {
       mapRef.current.remove();
     };
   }, []);
+
+  useEffect(() => {
+    if (currentElement && mapRef.current) {
+      if (currentElement.locationPrecise) {
+        mapRef.current.flyTo({
+          center: currentElement.locationPrecise,
+          zoom: 11,
+        });
+      } else {
+        mapRef.current.flyTo({
+          zoom: 2,
+        });
+      }
+    }
+  }, [currentElement]);
 
   return <Box id="mapbox-container" ref={mapContainerRef} {...otherProps} />;
 };
