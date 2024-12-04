@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import Map from './components/Map';
@@ -16,7 +16,7 @@ function App() {
   }, []);
 
   const [currentElement, setCurrentElement] = useState(null);
-  const setCurrentElementById = (elementId) => setCurrentElement({...events, ...sightings}[elementId])
+
   useEffect(() => {
     if (currentElement) {
       setShowDetails(true);
@@ -34,6 +34,8 @@ function App() {
         width="100%"
         height="100%"
         currentElement={currentElement}
+        setCurrentElement={setCurrentElement}
+        sightings={sightings}
       />
       <Flex
         position="absolute"
