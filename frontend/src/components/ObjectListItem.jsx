@@ -5,7 +5,7 @@ const ObjectListItem = ({ item, ...otherProps }) => {
     <Box bg="black" rounded="lg" p="2" {...otherProps}>
       <Text fontWeight="bold">{item.summary}</Text>
       <Text fontWeight="light">
-        {item.time_event}, {item.location_aprox}
+        {item.timeEvent}, {item.locationAprox}
       </Text>
       <Text fontSize="sm" fontStyle="italic">
         {item.source}

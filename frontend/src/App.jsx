@@ -22,9 +22,9 @@ function App() {
     if (currentElement) {
       setShowDetails(true);
       if (mapRef.current) {
-        if (currentElement.location_precise) {
+        if (currentElement.locationPrecise) {
           mapRef.current.flyTo({
-            center: currentElement.location_precise,
+            center: currentElement.locationPrecise,
             zoom: 11,
           });
         } else {
@@ -126,10 +126,10 @@ function loadElements(setSightings, setEvents) {
   const sightings = [
     {
       source: 'source',
-      time_event: '03.12.2024 16:12',
-      time_post: '03.12.2024 16:25',
-      location_aprox: 'Madrid',
-      location_precise: [-3.70329, 40.416728],
+      timeEvent: '03.12.2024 16:12',
+      timePost: '03.12.2024 16:25',
+      locationAprox: 'Madrid',
+      locationPrecise: [-3.70329, 40.416728],
       distance: '1 m',
       altitude: '1 m',
       shape: 'shape',
@@ -139,15 +139,15 @@ function loadElements(setSightings, setEvents) {
       description:
         'This on the other hand is a whole description of everything that happened. A lot of little details mentioned here and there and overall just quite a bit more text.',
       explanation: 'explanation',
-      num_observers: 'num_observers',
+      numObservers: 'num_observers',
       media: ['www.google.de', 'www.uc3m.es'],
     },
     {
       source: 'source',
-      time_event: '03.12.2024 16:12',
-      time_post: '03.12.2024 16:25',
-      location_aprox: 'Leganés',
-      location_precise: [-3.768654, 40.331951],
+      timeEvent: '03.12.2024 16:12',
+      timePost: '03.12.2024 16:25',
+      locationAprox: 'Leganés',
+      locationPrecise: [-3.768654, 40.331951],
       distance: '1 m',
       altitude: '1 m',
       shape: 'shape',
@@ -157,15 +157,15 @@ function loadElements(setSightings, setEvents) {
       description:
         'This on the other hand is a whole description of everything that happened. A lot of little details mentioned here and there and overall just quite a bit more text.',
       explanation: 'explanation',
-      num_observers: 'num_observers',
+      numObservers: 'num_observers',
       media: ['www.google.de', 'www.uc3m.es'],
     },
     {
       source: 'source',
-      time_event: '03.12.2024 16:12',
-      time_post: '03.12.2024 16:25',
-      location_aprox: 'Getafe',
-      location_precise: [-3.732393, 40.30825],
+      timeEvent: '03.12.2024 16:12',
+      timePost: '03.12.2024 16:25',
+      locationAprox: 'Getafe',
+      locationPrecise: [-3.732393, 40.30825],
       distance: '1 m',
       altitude: '1 m',
       shape: 'shape',
@@ -175,7 +175,7 @@ function loadElements(setSightings, setEvents) {
       description:
         'This on the other hand is a whole description of everything that happened. A lot of little details mentioned here and there and overall just quite a bit more text.',
       explanation: 'explanation',
-      num_observers: 'num_observers',
+      numObservers: 'num_observers',
       media: ['www.google.de', 'www.uc3m.es'],
     },
   ];
@@ -185,11 +185,11 @@ function loadElements(setSightings, setEvents) {
       summary: 'The summary field is not defined officially for events...',
       description: 'Neither is the description field officially devined for events!',
       source: 'source',
-      time_event: '03.12.2024 16:11', // deviated from currently defined format here! Currently just called time
-      distance_nominal: '1 AU',
-      distance_minimum: '1 AU',
-      velocity_relative: '1 kps',
-      velocity_infinity: '1 kps',
+      timeEvent: '03.12.2024 16:11', // deviated from currently defined format here! Currently just called time
+      distanceNominal: '1 AU',
+      distanceMinimum: '1 AU',
+      velocityRelative: '1 kps',
+      velocityInfinity: '1 kps',
       magnitude: '1',
       diameter: ['1 m', '2 m'],
       rarity: 0,

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Separator } from '@chakra-ui/react';
+import { Box, Flex, Heading } from '@chakra-ui/react';
 import ObjectListItem from './ObjectListItem';
 
 const ListItems = ({ items, setCurrentElement }) => {
