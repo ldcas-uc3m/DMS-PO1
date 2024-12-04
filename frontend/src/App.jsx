@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Box, Button, Flex } from '@chakra-ui/react';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import Map from './components/Map';
 import ObjectList from './components/ObjectList';
 import ObjectDetails from './components/ObjectDetails';
@@ -26,27 +27,32 @@ function App() {
         width="50%"
         height="100%"
         zIndex="10"
-        p="4"
+        direction="column"
+        align="start"
         gap="4"
+        p="4"
         pointerEvents="none"
       >
-        {showElements && (
-          <ObjectList
-            w="40%"
-            sightings={sightings}
-            events={events}
-            setCurrentElement={setCurrentElement}
-            pointerEvents="auto"
-          />
-        )}
         <Button
           size="sm"
           rounded="xl"
           pointerEvents="auto"
           onClick={() => setShowElements((s) => !s)}
         >
-          Show Elements
+          All Events and Sightings
+          {showElements ? <FaAngleLeft /> : <FaAngleRight />}
         </Button>
+        {showElements && (
+          <ObjectList
+            w="40%"
+            minW="20rem"
+            flex="1"
+            sightings={sightings}
+            events={events}
+            setCurrentElement={setCurrentElement}
+            pointerEvents="auto"
+          />
+        )}
       </Flex>
       <Flex
         position="absolute"
@@ -55,9 +61,10 @@ function App() {
         width="50%"
         height="100%"
         zIndex="10"
-        p="4"
+        direction="column"
+        align="end"
         gap="4"
-        justify="flex-end"
+        p="4"
         pointerEvents="none"
       >
         <Button
@@ -66,10 +73,17 @@ function App() {
           pointerEvents="auto"
           onClick={() => setShowDetails((s) => !s)}
         >
+          {showDetails ? <FaAngleRight /> : <FaAngleLeft />}
           Show Details
         </Button>
         {showDetails && (
-          <ObjectDetails w="40%" element={currentElement} pointerEvents="auto" />
+          <ObjectDetails
+            w="40%"
+            minW="20rem"
+            flex="1"
+            element={currentElement}
+            pointerEvents="auto"
+          />
         )}
       </Flex>
     </Box>
