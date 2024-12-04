@@ -8,9 +8,9 @@ const ListItems = ({ items, setCurrentElement }) => {
         <ObjectListItem
           item={items[key]}
           mb={index < keys.length - 1 ? '2' : null}
-          onClick={() => setCurrentElement(items[key])}
+          onClick={() => setCurrentElement({ ...items[key] })} // reconstructing object to enforce triggering useEffects even on the same element
           cursor="pointer"
-          key={index} // TODO should be replaced by a proper element-specific id
+          key={items[key].id}
         />
       ))}
     </>

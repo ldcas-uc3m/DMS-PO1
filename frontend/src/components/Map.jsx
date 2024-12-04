@@ -111,7 +111,7 @@ function addOnClickToMap(mapRef, sightings, setCurrentElement) {
       setCurrentElement(null);
     } else {
       const feature = features[0];
-      setCurrentElement(sightings[feature.properties.id]);
+      setCurrentElement({ ...sightings[feature.properties.id] }); // reconstructing object to enforce triggering useEffects even on the same element
     }
   };
 
