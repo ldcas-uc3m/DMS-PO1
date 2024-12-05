@@ -16,6 +16,7 @@ function App() {
   }, []);
 
   const [currentElement, setCurrentElement] = useState(null);
+  const [currentPosition, setCurrentPosition] = useState([-3.70329, 40.416728]);
 
   useEffect(() => {
     if (currentElement) {
@@ -35,6 +36,7 @@ function App() {
         height="100%"
         currentElement={currentElement}
         setCurrentElement={setCurrentElement}
+        setCurrentPosition={setCurrentPosition}
         sightings={sightings}
       />
       <Flex
@@ -68,6 +70,7 @@ function App() {
             events={events}
             currentElement={currentElement}
             setCurrentElement={setCurrentElement}
+            currentPosition={currentPosition}
             pointerEvents="auto"
           />
         )}

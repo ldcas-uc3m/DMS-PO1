@@ -3,13 +3,24 @@ import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import vscTelescope from '../assets/vsc-telescope.svg';
 
-const Map = ({ currentElement, setCurrentElement, sightings, ...otherProps }) => {
+const Map = ({
+  currentElement,
+  setCurrentElement,
+  setCurrentPosition,
+  sightings,
+  ...otherProps
+}) => {
   const mapRef = useRef();
   const mapContainerRef = useRef();
   const [mapLoaded, setMapLoaded] = useState(false);
 
   useEffect(() => {
-    const tearDownMap = setupMap(mapContainerRef, mapRef, setMapLoaded);
+    const tearDownMap = setupMap(
+      mapContainerRef,
+      mapRef,
+      setMapLoaded,
+      setCurrentPosition,
+    );
     return tearDownMap;
   }, []);
 
@@ -34,7 +45,7 @@ const Map = ({ currentElement, setCurrentElement, sightings, ...otherProps }) =>
   return <Box id="mapbox-container" ref={mapContainerRef} {...otherProps} />;
 };
 
-function setupMap(mapContainerRef, mapRef, setMapLoaded) {
+function setupMap(mapContainerRef, mapRef, setMapLoaded, setCurrentPosition) {
   mapRef.current = new mapboxgl.Map({
     accessToken: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
     container: mapContainerRef.current,
@@ -51,6 +62,11 @@ function setupMap(mapContainerRef, mapRef, setMapLoaded) {
 
   mapRef.current.on('mouseleave', 'sightings', () => {
     mapRef.current.getCanvas().style.cursor = '';
+  });
+
+  mapRef.current.on('moveend', () => {
+    const center = mapRef.current.getCenter();
+    setCurrentPosition([center.lng, center.lat]);
   });
 
   return () => {
