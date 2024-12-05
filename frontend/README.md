@@ -2,7 +2,7 @@
 
 ## Mapbox
 
-For the mapbox-gl integration, a Mapbbox-API token is needed. If you don’t yet have an account, create one and get your API token from within your account (https://account.mapbox.com/).
+For the mapbox-gl integration, a Mapbbox-API token is needed. If you don’t yet have an account, [create one](https://account.mapbox.com/auth/signup/) and get your API token from your [account page](https://account.mapbox.com/).
 
 Afterwards create a file called `.env.local` in the root of the `frontend` folder with the following content:
 

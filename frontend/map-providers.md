@@ -36,16 +36,22 @@ Couldn’t really locate, how they are provided now, but this [FAQ](https://maps
 
 ## Mapbox GL JS
 
-Mapbox uses its own JS library
+Mapbox uses its own JS library.
 
-https://docs.mapbox.com/mapbox-gl-js/guides/
+Resources:
 
-https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/
+- https://docs.mapbox.com/mapbox-gl-js/guides/
+- https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/
+- https://docs.mapbox.com/help/tutorials/add-points-pt-3/
+- https://docs.mapbox.com/mapbox-gl-js/example/popup-on-click/
+- https://docs.mapbox.com/mapbox-gl-js/api/map/#map-events
+- https://docs.mapbox.com/mapbox-gl-js/api/map/#map-parameters
 
 ## Leaflet
 
-All other providers should be compatible with Leaflet
+All other providers should be compatible with Leaflet.
 
-https://leafletjs.com/examples/quick-start/
+Resources:
 
-https://strapi.io/blog/how-to-build-an-interactive-map-with-react-leaflet-and-strapi
+- https://leafletjs.com/examples/quick-start/
+- https://strapi.io/blog/how-to-build-an-interactive-map-with-react-leaflet-and-strapi
