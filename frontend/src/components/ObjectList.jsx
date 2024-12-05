@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spinner } from '@chakra-ui/react';
 import ObjectListItem from './ObjectListItem';
 
 const ListItems = ({ items, currentElement, setCurrentElement }) => {
@@ -39,23 +39,35 @@ const ObjectList = ({
     >
       <Flex direction="column" flex="1 1 0" gap="2">
         <Heading alignSelf="center">Sightings</Heading>
-        <Box overflowY="auto" flex="1 1 0">
-          <ListItems
-            items={sightings}
-            currentElement={currentElement}
-            setCurrentElement={setCurrentElement}
-          />
-        </Box>
+        {!sightings ? (
+          <Flex flex="1 1 0" justify="center" align="center">
+            <Spinner />
+          </Flex>
+        ) : (
+          <Box overflowY="auto" flex="1 1 0">
+            <ListItems
+              items={sightings}
+              currentElement={currentElement}
+              setCurrentElement={setCurrentElement}
+            />
+          </Box>
+        )}
       </Flex>
       <Flex direction="column" flex="1 1 0" gap="2">
         <Heading alignSelf="center">Astronomical Events</Heading>
-        <Box overflowY="auto" flex="1 1 0">
-          <ListItems
-            items={events}
-            currentElement={currentElement}
-            setCurrentElement={setCurrentElement}
-          />
-        </Box>
+        {!events ? (
+          <Flex flex="1 1 0" justify="center" align="center">
+            <Spinner />
+          </Flex>
+        ) : (
+          <Box overflowY="auto" flex="1 1 0">
+            <ListItems
+              items={events}
+              currentElement={currentElement}
+              setCurrentElement={setCurrentElement}
+            />
+          </Box>
+        )}
       </Flex>
     </Flex>
   );

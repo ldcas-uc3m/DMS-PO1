@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import Map from './components/Map';
@@ -110,7 +110,9 @@ function App() {
 
 export default App;
 
-function loadElements(setSightings, setEvents) {
+async function loadElements(setSightings, setEvents) {
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  await delay(5000);
   // TODO load data from database and already make transformations into readable data where necessary.
 
   const sightings = {

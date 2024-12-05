@@ -14,8 +14,8 @@ const Map = ({ currentElement, setCurrentElement, sightings, ...otherProps }) =>
   }, []);
 
   useEffect(() => {
-    if (sightings && mapLoaded) {
-      const unloadMarkers = loadMarkers(mapRef, sightings);
+    if (mapLoaded) {
+      const unloadMarkers = loadMarkers(mapRef, sightings ? sightings : {});
       return unloadMarkers;
     }
   }, [sightings, mapLoaded]);
@@ -94,8 +94,8 @@ function loadMarkers(mapRef, sightings) {
 
   return () => {
     if (mapRef.current) {
-      mapRef.current.removeSource('sightings');
       mapRef.current.removeLayer('sightings');
+      mapRef.current.removeSource('sightings');
       mapRef.current.removeImage('sightings-marker');
     }
   };
