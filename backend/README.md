@@ -26,13 +26,13 @@ Devuelve:
 
 ### `GET` `/events`
 Devuelve:
-- `200`: Lista de avistamientos ([`AstronomicalEvent`](#astronomicalevent))
+- `200`: Lista de evento ([`AstronomicalEvent`](#astronomicalevent))
 
 
 ### `GET` `/events/<id>`
 Devuelve:
 - `200`: `{"status": "success", "data": <data>`
-    - `<data>`: Datos del avistamiento ([`AstronomicalEvent`](#astronomicalevent)) asociado al `<id>`
+    - `<data>`: Datos del evento ([`AstronomicalEvent`](#astronomicalevent)) asociado al `<id>`
 
 ### `POST` `/events`
 Body: [`AstronomicalEvent`](#astronomicalevent)  
