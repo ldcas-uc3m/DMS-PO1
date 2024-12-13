@@ -96,7 +96,7 @@ pub async fn add_sighting(
 // events
 
 #[get("/events", format = "json")]
-pub async fn get_events(db: Connection<MainDatabase>) -> Json<Vec<Sighting>> {
+pub async fn get_events(db: Connection<MainDatabase>) -> Json<Vec<AstronomicalEvent>> {
     let events = db
         .database("jose")
         .collection("astronomical-events")
@@ -104,7 +104,7 @@ pub async fn get_events(db: Connection<MainDatabase>) -> Json<Vec<Sighting>> {
         .await;
 
     if let Ok(r) = events {
-        if let Ok(collected) = r.try_collect::<Vec<Sighting>>().await {
+        if let Ok(collected) = r.try_collect::<Vec<AstronomicalEvent>>().await {
             return Json(collected);
         }
     }
