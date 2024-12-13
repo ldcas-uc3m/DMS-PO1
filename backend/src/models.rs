@@ -9,7 +9,7 @@ pub struct Sighting {
     pub source: String,
     pub time_event: u32,  // unix timestamp (s)
     pub time_post: Option<u32>,  // unix timestamp (s)
-    pub location_aprox: String,
+    pub location_aprox: Option<String>,
     pub location_precise: Option<Vec<f64>>,  // [<longitude>, <latitude>]
     pub distance: Option<f64>,  // m
     pub altitude: Option<f64>,  // m

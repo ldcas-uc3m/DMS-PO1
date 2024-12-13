@@ -54,7 +54,7 @@ Atributos:
 - `source` (string): fuente de los datos del avistamiento
 - `time_event` (number): fecha y hora del avistamiento (formato Unix Timestamp - s)
 - `time_post` (number) [opcional]: fecha y hora del reporte del avistamiento (formato Unix Timestamp - s)
-- `location_aprox` (string): localización aproximada del avistamiento (ciudad, etc.)
+- `location_aprox` (string) [opcional]: localización aproximada del avistamiento (ciudad, etc.)
 - `location_precise` (array[number]) [opcional]: longitud y latitud del avistamiento (`[<longitud>, <latitud>]`)
 - `distance` (number) [opcional]: distancia desde el avistamiento al objeto (metros)
 - `altitude` (number) [opcional]: altitud del objeto (metros)
