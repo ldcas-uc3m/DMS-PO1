@@ -28,8 +28,8 @@ pub struct Sighting {
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct AstronomicalEvent {
-    #[serde(rename = "_id")]
-    pub id: ObjectId,
+    #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<ObjectId>,
     pub source: String,
     pub time: u32,  // unix timestamp (s)
     pub distance_nominal: f64,  // au
