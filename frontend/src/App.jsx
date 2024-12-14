@@ -169,7 +169,7 @@ async function loadElements(setSightings, setEvents) {
     const eventsList = await response.json();
     eventsList.map((event) => {
       event.id = event._id.$oid;
-      delete event.id;
+      delete event._id;
       event.time_event = new Date(event.time * 1000).toLocaleDateString('es-ES', {
         day: 'numeric',
         month: 'long',
