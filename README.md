@@ -55,13 +55,13 @@ Levantar backend ([localhost:8000](localhost:8000)):
 docker compose up -d backend
 ```
 
-Levantar frontend ([localhost:8080](localhost:8080)):
+Levantar backend ([localhost:8000](localhost:8000)) y frontend ([localhost:8080](localhost:8080)):
 
 ~~~
 docker compose up -d frontend
 ~~~
 
-Levantar mongo-express ([localhost:8081](localhost:8081)):
+Levantar interfaz-web de MongoDB mongo-express ([localhost:8081](localhost:8081)):
 
 ~~~
 docker compose up -d mongo-express
@@ -70,7 +70,7 @@ docker compose up -d mongo-express
 Levantar todas:
 
 ```
-docker compose up -d backend frontend mongo-express
+docker compose up -d frontend mongo-express
 ```
 
 Tirar abajo:
