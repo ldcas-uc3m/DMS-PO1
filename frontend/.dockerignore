@@ -1,2 +1,6 @@
 node_modules
 dist
+.prettierrc
+.eslint.config.js
+map-providers.md
+README.md

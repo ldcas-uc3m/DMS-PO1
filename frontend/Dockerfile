@@ -3,12 +3,14 @@
 # Build frontend from scratch
 FROM node:23.3.0 AS builder
 WORKDIR /app
+# First only copy package.json and package-lock.json to leverage Docker's layer caching in case they do not change
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm install --omit=dev
+# Only then copies all remaining files (exclusions defined in .dockerignore)
 COPY . .
 RUN npm run build
 
-# Copy built frontend to serve from minimal server setup and minimize image size
+# Copy built frontend to serve from minimal server setup to minimize image size
 FROM busybox:1.37 AS runner
 WORKDIR /app
 COPY --from=builder /app/dist .
