@@ -14,6 +14,10 @@ function App() {
   useEffect(() => {
     loadElements(setSightings, setEvents);
   }, []);
+  useEffect(() => {
+    console.log(sightings);
+    console.log(events);
+  }, [sightings, events]);
 
   const [currentElement, setCurrentElement] = useState(null);
   const [currentPosition, setCurrentPosition] = useState([-3.70329, 40.416728]);
@@ -114,87 +118,73 @@ function App() {
 export default App;
 
 async function loadElements(setSightings, setEvents) {
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-  await delay(5000);
-  // TODO load data from database and already make transformations into readable data where necessary.
+  function keysSnakeToCamel(object) {
+    function snakeToCamel(str) {
+      return str
+        .toLowerCase()
+        .replace(/([-_][a-z])/g, (group) => group.slice(-1).toUpperCase());
+    }
 
-  const sightings = {
-    sighting1: {
-      id: 'sighting1',
-      source: 'source',
-      timeEvent: '03.12.2024 16:12',
-      timePost: '03.12.2024 16:25',
-      locationAprox: 'Madrid',
-      locationPrecise: [-3.70329, 40.416728],
-      distance: '1 m',
-      altitude: '1 m',
-      shape: 'shape',
-      size: 'size',
-      features: 'features',
-      summary: 'This is the summary of sighting 1.',
-      description:
-        'This on the other hand is a whole description of everything that happened. A lot of little details mentioned here and there and overall just quite a bit more text.',
-      explanation: 'explanation',
-      numObservers: 'num_observers',
-      media: ['www.google.de', 'www.uc3m.es'],
-    },
-    sighting2: {
-      id: 'sighting2',
-      source: 'source',
-      timeEvent: '03.12.2024 16:12',
-      timePost: '03.12.2024 16:25',
-      locationAprox: 'Leganés',
-      locationPrecise: [-3.768654, 40.331951],
-      distance: '1 m',
-      altitude: '1 m',
-      shape: 'shape',
-      size: 'size',
-      features: 'features',
-      summary: 'This is the summary of sighting 2.',
-      description:
-        'This on the other hand is a whole description of everything that happened. A lot of little details mentioned here and there and overall just quite a bit more text.',
-      explanation: 'explanation',
-      numObservers: 'num_observers',
-      media: ['www.google.de', 'www.uc3m.es'],
-    },
-    sighting3: {
-      id: 'sighting3',
-      source: 'source',
-      timeEvent: '03.12.2024 16:12',
-      timePost: '03.12.2024 16:25',
-      locationAprox: 'Getafe',
-      locationPrecise: [-3.732393, 40.30825],
-      distance: '1 m',
-      altitude: '1 m',
-      shape: 'shape',
-      size: 'size',
-      features: 'features',
-      summary: 'This is the summary of I think we need titles.',
-      description:
-        'This on the other hand is a whole description of everything that happened. A lot of little details mentioned here and there and overall just quite a bit more text.',
-      explanation: 'explanation',
-      numObservers: 'num_observers',
-      media: ['www.google.de', 'www.uc3m.es'],
-    },
-  };
+    return Object.fromEntries(
+      Object.entries(object).map(([k, v]) => [snakeToCamel(k), v]),
+    );
+  }
 
-  const events = {
-    event1: {
-      id: 'event1',
-      summary: 'The summary field is not defined officially for events...',
-      description: 'Neither is the description field officially devined for events!',
-      source: 'source',
-      timeEvent: '03.12.2024 16:11', // deviated from currently defined format here! Currently just called time
-      distanceNominal: '1 AU',
-      distanceMinimum: '1 AU',
-      velocityRelative: '1 kps',
-      velocityInfinity: '1 kps',
-      magnitude: '1',
-      diameter: ['1 m', '2 m'],
-      rarity: 0,
-    },
-  };
+  try {
+    const response = await fetch('http://localhost:8000/sightings');
+    if (!response.ok) {
+      throw new Error(`Response status ${response.status}`);
+    }
 
-  setSightings(sightings);
-  setEvents(events);
+    const sightings = {};
+    const sightingsList = await response.json();
+    sightingsList.map((sighting) => {
+      sighting.id = sighting._id.$oid;
+      delete sighting._id;
+      sighting.time_event = new Date(sighting.time_event * 1000).toLocaleDateString(
+        'es-ES',
+        { day: 'numeric', month: 'long', year: 'numeric' },
+      );
+      if (sighting.time_post)
+        sighting.time_event = new Date(sighting.time_event * 1000).toLocaleDateString(
+          'es-ES',
+          { day: 'numeric', month: 'long', year: 'numeric' },
+        );
+      if (sighting.distance) sighting.distance = `${sighting.distance} m`;
+      if (sighting.altitude) sighting.altitude = `${sighting.altitude} m`;
+      sightings[sighting.id] = keysSnakeToCamel(sighting);
+    });
+    setSightings(sightings);
+  } catch (error) {
+    console.error(`Error while loading sightings: ${error.message}`);
+  }
+
+  try {
+    const response = await fetch('http://localhost:8000/events');
+    if (!response.ok) {
+      throw new Error(`Response status ${response.status}`);
+    }
+
+    const events = {};
+    const eventsList = await response.json();
+    eventsList.map((event) => {
+      event.id = event._id.$oid;
+      delete event.id;
+      event.time_event = new Date(event.time * 1000).toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
+      event.distance_nominal = `${event.distance_nominal} AU`;
+      if (event.distance_minimum) event.distance_minimum = `${event.distance_minimum} AU`;
+      event.velocity_relative = `${event.velocity_relative} kps`;
+      if (event.velocity_infinity)
+        event.velocity_infinity = `${event.velocity_infinity} kps`;
+      event.diameter = [`${event.diameter[0]} m`, `${event.diameter[1]} m`];
+      events[event.id] = keysSnakeToCamel(event);
+    });
+    setEvents(events);
+  } catch (error) {
+    console.error(`Error while loading events: ${error.message}`);
+  }
 }
