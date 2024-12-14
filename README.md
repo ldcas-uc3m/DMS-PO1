@@ -52,12 +52,25 @@ Requiere tener [docker](https://docker.com) instalado.
 
 Levantar backend ([localhost:8000](localhost:8000)):
 ```
-docker compse up -d backend
+docker compose up -d backend
 ```
 
-Levantar backend ([localhost:8000](localhost:8000)) y mongo-express ([localhost:8081](localhost:8081)):
+Levantar frontend ([localhost:8080](localhost:8080)):
+
+~~~
+docker compose up -d frontend
+~~~
+
+Levantar mongo-express ([localhost:8081](localhost:8081)):
+
+~~~
+docker compose up -d mongo-express
+~~~
+
+Levantar todas:
+
 ```
-docker compse up -d backend mongo-express
+docker compose up -d backend frontend mongo-express
 ```
 
 Tirar abajo:
