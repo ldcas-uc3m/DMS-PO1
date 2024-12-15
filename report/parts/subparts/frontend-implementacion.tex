@@ -1,1 +1,29 @@
 \subsubsection{Frontend}
+
+Para el frontend nuestra prueba de concepto implementa todas las funciones fundamentales:
+\begin{itemize}
+    \item Accede a los datos recompilados según el backend
+    \item Muestra los elementos en el mapa (donde aplicable)
+    \item Tiene listas de todos los elementos disponible (ordenados por proximidad donde aplicable)
+    \item Ofrece una vista de detalles para elementos especificos
+\end{itemize}
+
+\paragraph{Biblioteca JavaScript}
+Usamos \emph{React} cómo herramienta básica.
+
+Nuestros requisitos funcionales para el frontend forman un ejemplo destacado de un \emph{Single Page Application} (aplicación de una sola página), porque por diseño es una sola página con comportamiento complejo. La implementación también beneficio del gran foco a componentes individuales.
+
+\paragraph{Marco de interfaz de usuario}
+Para estructurar la interfaz usamos \emph{Chakra-UI}.
+
+Ayuda con acelerar el desarrollo con bloques de construcción predefinidos. En la actualidad, no es personalizado mucho, pero ofrece opciones correspondientes si es necesario en el futuro. Ya que la estructura básica aún no es especialmente complicada, también puede ser retirado o sustituido fácilmente.
+
+\paragraph{Mapa}
+El núcleo del frontend constituye la integración con \emph{Mapbox}.
+
+La gran ventaja de usar Mapbox sobre otro proveedor de mapas es que el uso se mide por las cargas de página y no baldosas solicitado (qué pase siempre que hay movimiento). Ya que solo usamos un mapa, pero movemos mucho,
+en nuestro caso es ideal.
+
+Usamos la API de Mapbox en directo con interacciones del usuario, directamente sobre el paquete JS proporcionada por el promotor.
+Los elementos se pasan cómo una capa con símbolos propios al mapa.
+Todos los interacciones con los partes React de la página web son integradas. Por ejemplo se mueve a la ubicación de un elemento sobre la selección.

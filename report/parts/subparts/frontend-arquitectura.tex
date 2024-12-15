@@ -1,1 +1,43 @@
 \subsubsection{Frontend}
+
+El objetivo principal para el frontend es presentar los datos de una forma que es fácil navegarlos. Conceptualmente, consta de varias vistas individuales que en total forman una visión global y completa.
+El frontend accede a los datos recogidos solo a través del backend.
+
+\paragraph{Vista lista} Esta vista ofrece acceso a todos los datos según listas simples que solo muestran pocos detalles de datos individuales.
+Debe ser una opción de ver y seleccionar elementos de forma muy cerca a los datos brutos.
+
+Posibles características incluyen:
+\begin{itemize}
+    \item[Filtros] Ofrecer una opción de filtrar los elementos según características específicas.
+    \begin{itemize}
+        \item[Lugar] La opción de limitar la lista a elementos de un radio de un lugar específico.
+        \item[Fecha] La opción de limitar la lista a un período de tiempo
+        \item[Tipo] La opción de limitar la lista a diferentes tipos de datos
+    \end{itemize}
+    \item[Orden] Ofrecer una opción de ordenar los elementos según características específicas.
+    \begin{itemize}
+        \item[Lugar] La opción de ordenar la lista de distancia a un lugar especifico.
+        \item[Fecha] La opción de ordenar la lista de fecha.
+    \end{itemize}
+    \item[Comparar] Ofrecer una opción de seleccionar un elemento como objeto para comparar y relacionar todos los otros elementos a este.
+\end{itemize}
+
+\paragraph{Vista de detalles} Esta vista es para presentar los detalles del elemento actual.
+Keep modular and flexible.
+Group similar events (very close, shared themes)
+IA
+
+Posibles características incluyen:
+\begin{itemize}
+    \item[Especificidad] Presentar determinados campos de la forma más intuitiva posible.
+    \item[Flexibilidad] Ser capaz de presentar todos los datos, también si no hay formas definidas para tratar datos específicos.
+    \item[Eventos similares] Ofrecer una sección de eventos relacionados con el evento actual de varias formas.
+    \item[IA] Aquí también se ofrece una opción de usar IA para preparar los datos según el evento y ofrecer un resumen al usuario.
+\end{itemize}
+
+\paragraph{Vista mapa} Esta vista es para dar una buena visión general de todos los datos, basado en localizar los elementos en un gran mapa. Es la vista fundamental. Las vistas listas y de detalles se colocan encima.
+Cómo referencia, ver \figref{ui_overview}.
+
+\rasterfigure[1]{ui_overview}{Captura de la UI del prototipo de la aplicación web.}
+
+\paragraph{Enlaces} Un objetivo general es capturar la totalidad del visto actual en enlaces para facilitar el intercambio de resultados interesantes.
