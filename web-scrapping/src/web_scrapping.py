@@ -1,6 +1,7 @@
 import requests
 import time
 import json
+import re
 from datetime import datetime
 from playwright.sync_api import sync_playwright
 
@@ -32,7 +33,7 @@ def get_urls(Num,url):
                     # Esperamos a que el cuadro de consentimiento desaparezca
                     page.wait_for_selector(".fc-dialog", state="detached", timeout=5000)
                 except Exception as e:
-                    print(f"El diálogo de consentimiento no apareció o ya fue aceptado. Error: {e}")
+                    print(f"El diálogo de consentimiento no apareció o ya fue aceptado.")
 
                 # Esperamos a que la tabla esté completamente cargada
                 page.wait_for_selector('table')
@@ -76,21 +77,20 @@ def get_urls(Num,url):
                     # Espera para evitar clics rápidos
                     page.wait_for_timeout(500)  # Espera 500ms
                 
-                # Verifica si hay un botón de "Next" y haz clic para avanzar a la siguiente página
-                if i != Num:    
-                    try:
-                        next_button = page.locator('.pagination-next a')
-                        next_button.wait_for(state="visible", timeout=5000)
-                        if next_button.is_enabled():
-                            next_button.click()
-                            # Espera que la página cargue completamente
-                            page.wait_for_load_state('networkidle')  # Espera que la página se cargue
-                        else:
-                            print("No hay más páginas.")
-                            break  # Si no hay más páginas, detén el ciclo
-                    except:
-                        print("Error al encontrar o hacer clic en el botón 'Next'.")
-                        break  # Detener si no se puede avanzar
+                # Verifica si hay un botón de "Next" y haz clic para avanzar a la siguiente página    
+                try:
+                    next_button = page.locator('.pagination-next a')
+                    next_button.wait_for(state="visible", timeout=5000)
+                    if next_button.is_enabled():
+                        next_button.click()
+                        # Espera que la página cargue completamente
+                        page.wait_for_load_state('networkidle')  # Espera que la página se cargue
+                    else:
+                        print("No hay más páginas.")
+                        break  # Si no hay más páginas, detén el ciclo
+                except:
+                    print("Error al encontrar o hacer clic en el botón 'Next'.")
+                    break  # Detener si no se puede avanzar
 
             # Cierra el navegador después de obtener todos los enlaces
             browser.close()
@@ -108,6 +108,8 @@ def get_data(urls):
         page = browser.new_page()
         for elem in urls:
             # Navegar a la página
+
+            print("URL IS: ",elem)
             page.goto(elem)
             # Esperaramos a que el elemento de Detailed Description esté cargado
             page.wait_for_selector('.card-header:has-text("Detailed Description") + .card-body p')
@@ -131,8 +133,8 @@ def get_data(urls):
 
             features = features.replace(" ", "")
             features = features.replace(",", ", ")
-            distance = distance.replace("meters", "")
-            altitude = altitude.replace("feet", "")
+            distance = re.sub(r'\D','',distance)
+            altitude = re.sub(r'\D','',altitude)
             submitted = submitted.replace("Submitted", "")
             submitted = submitted.strip()
 
@@ -142,8 +144,14 @@ def get_data(urls):
             occurred = int(occurred.timestamp())
             submitted = int(submitted.timestamp())
 
-            # Mostrar los resultados
+            #Estos ifs son para casos en los que no se dan numeros
+            if len(distance) == 0:
+                distance = "0"
+            
+            if len(altitude) == 0:
+                altitude = "0"
 
+            # Mostrar los resultados
             data = { "source" : elem,
                     "time_event": occurred,
                     "time_post": submitted,
@@ -160,8 +168,7 @@ def get_data(urls):
                     "num_observers": 1, #Porque almenos 1 persona ha tenido que observarlo e introducirlo en la página
                     "media": []
             }
-
-            x = requests.post("localhost:8080/sightings", json = data)
+            #x = requests.post("localhost:8000/sightings", json = data)
             time.sleep(1)
 
 if __name__ == '__main__':
@@ -172,7 +179,10 @@ if __name__ == '__main__':
         while True:
             urls = get_urls(Num,url)
             get_data(urls)
-            time.sleep(300) #5 minutos = 300
+            time.sleep(300) #5 minutos
     
     except Exception as e:
         print("Error: {}".format(e))
+        with open("src/log.json", "w") as archive:
+            #Vaciamos los datos
+            json.dump([], archive)
