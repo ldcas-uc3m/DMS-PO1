@@ -50,8 +50,8 @@ function setupMap(mapContainerRef, mapRef, setMapLoaded, setCurrentPosition) {
     accessToken: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
     container: mapContainerRef.current,
     style: 'mapbox://styles/mapbox/dark-v11',
-    center: [-3.70329, 40.416728],
-    zoom: 11,
+    center: [-102.062625, 39.494125],
+    zoom: 4.5,
     crossSourceCollisions: false,
   });
   mapRef.current.on('load', () => setMapLoaded(true));
