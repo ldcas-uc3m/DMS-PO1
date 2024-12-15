@@ -53,7 +53,7 @@ Requiere tener [docker](https://docker.com) instalado.
 Levantar todo:
 
 ```
-docker compose up
+docker compose up --build
 ```
 
 Tirar abajo:
