@@ -7,7 +7,8 @@ use rocket::{
 };
 use rocket_db_pools::Connection;
 use serde_json::{json, Value};
-
+use std::error::Error;
+use reqwest::Client;
 
 
 #[get("/")]
@@ -64,16 +65,67 @@ pub async fn get_sighting(db: Connection<MainDatabase>, id: &str) -> status::Cus
     );
 }
 
+async fn get_coordinates_from_mapbox(location: &Option<String>, api_key: &str) -> Result<Option<Vec<f64>>, Box<dyn Error>> {
+    let location_str = location.as_ref().unwrap_or(&String::from("")).to_string();
+
+    if location_str.is_empty() {
+        return Ok(None);
+    }
+
+    let url = format!(
+        "https://api.mapbox.com/geocoding/v5/mapbox.places/{}.json?access_token={}",
+        location_str, api_key
+    );
+
+    let client = Client::new();
+    let res = client.get(&url).send().await?;
+
+    if res.status().is_success() {
+        let body: Value = res.json().await?;
+        if let Some(features) = body["features"].as_array() {
+            if let Some(first_feature) = features.get(0) {
+                if let Some(center) = first_feature["center"].as_array() {
+                    let latitude = center.get(1).and_then(|v| v.as_f64()).unwrap_or_default();
+                    let longitude = center.get(0).and_then(|v| v.as_f64()).unwrap_or_default();
+                    return Ok(Some(vec![latitude, longitude]));
+                }
+            }
+        }
+    }
+
+    Ok(None)
+}
+
+async fn precise_location(data: Sighting, api_key: &str) -> Result<Sighting, Box<dyn Error>> {
+    if let Some(location) = get_coordinates_from_mapbox(&data.location_aprox, api_key).await? {
+        let transformed_data = Sighting {
+            location_precise: Some(location),
+            ..data
+        };
+        Ok(transformed_data)
+    } else {
+        Ok(data)
+    }
+}
 
 #[post("/sightings", data = "<data>", format = "json")]
 pub async fn add_sighting(
     db: Connection<MainDatabase>,
     data: Json<Sighting>,
+    api_key: &rocket::State<String>,
 ) -> status::Custom<Json<Value>> {
+
+    let transformed_data = match precise_location(data.clone().into_inner(), api_key.inner()).await {
+        Ok(transformed) => transformed,
+        Err(_) => {
+            data.into_inner()
+        }
+    };
+
     if let Ok(res) = db
         .database("jose")
         .collection::<Sighting>("sightings")
-        .insert_one(data.into_inner(), None)
+        .insert_one(transformed_data, None)
         .await
     {
         if let Some(id) = res.inserted_id.as_object_id() {

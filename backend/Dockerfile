@@ -15,7 +15,6 @@ COPY ./Cargo.toml ./Cargo.toml
 COPY ./Cargo.lock ./Cargo.lock
 COPY ./Rocket.toml ./Rocket.toml
 
-
 # This build step will cache dependencies
 RUN cargo build --release
 RUN rm src/*.rs
@@ -34,6 +33,13 @@ FROM debian:bookworm-slim
 
 ENV ROCKET_ADDRESS=0.0.0.0
 ENV ROCKET_PORT=8000
+
+# Install OpenSSL (and any required dependencies for your app)
+RUN apt-get update && apt-get install -y \
+    openssl \
+    libssl3 \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy the build artefact from the build stage
 COPY --from=builder /backend/target/release/backend .

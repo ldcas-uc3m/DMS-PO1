@@ -1,7 +1,8 @@
 use mongodb::bson::oid::ObjectId;
 use rocket::serde::{Deserialize, Serialize};
+use core::clone::Clone;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(crate = "rocket::serde")]
 pub struct Sighting {
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]

@@ -22,7 +22,11 @@ fn rocket() -> _ {
     .to_cors()
     .unwrap();
 
-    rocket::build().attach(db::MainDatabase::init()).attach(cors).mount(
+    rocket::build()
+    .attach(db::MainDatabase::init())
+    .attach(cors)
+    .manage("pk.eyJ1IjoidGlrb2ViZWxlIiwiYSI6ImNtNDhyZzJ6NTAybXMya3NoYTJ1aTVyenYifQ.7CxZ4iDKD2kRgWYr6Fta0w".to_string())
+    .mount(
         "/",
         routes![
             routes::index,
