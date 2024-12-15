@@ -52,6 +52,10 @@ services:
     build: ./csv-importing
     depends_on:
       - backend
+  api-importing:
+    build: ./api-importing
+    depends_on:
+      - backend
 
 volumes:
   mongodb:

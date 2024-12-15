@@ -1,6 +1,7 @@
 import requests
 import json
 from datetime import datetime
+import time
 
 
 # Function to convert UTC time to Unix timestamp
@@ -13,17 +14,17 @@ def utc_month_HM_to_unix(utc_string):
         return None
 
 # Vaciar JSON de eventos
-def json_empty(json_file='events.json'):
+def json_empty(json_file='src/events.json'):
     with open(json_file, 'w') as f:
         json.dump([], f, indent=4)
 
 # Guardar eventos como archivo JSON
-def json_save(events, json_file='events.json'):
+def json_save(events, json_file='src/events.json'):
     with open(json_file, 'w') as f:
         json.dump(events, f, indent=4)
 
 # Leer eventos desde archivo JSON
-def json_read(json_file = 'events.json'):
+def json_read(json_file = 'src/events.json'):
     print("Cargar los datos JSON desde el archivo")
     with open(json_file, 'r') as f:
         data = json.load(f)
@@ -38,7 +39,7 @@ def json_post(data, URL_DATABASE):
 
 
 # Function to fetch CAD data from NASA API for the year 1975
-def fetch_nasa_data_2025(nasa_api_file='nasa_CA_data_2025.json'):
+def fetch_nasa_data_2025(nasa_api_file='src/nasa_CA_data_2025.json'):
     url = "https://ssd-api.jpl.nasa.gov/cad.api?date-min=2025-01-01&date-max=2026-01-01&dist-max=0.01"
     response = requests.get(url)
     if response.status_code == 200:
@@ -49,7 +50,7 @@ def fetch_nasa_data_2025(nasa_api_file='nasa_CA_data_2025.json'):
         return None
 
 # Function to process the data from the API
-def process_nasa_data(data, events_file='events.json'):
+def process_nasa_data(data, events_file='src/events.json'):
     events = []
 
     for item in data['data']:
@@ -60,7 +61,6 @@ def process_nasa_data(data, events_file='events.json'):
         # Convert numerical fields
         distance_nominal = float(item[4]) if item[4] else None  # 'dist' -> distance nominal
         distance_minimum = float(item[5]) if item[5] else None  # 'dist_min' -> distance minimum
-        distance_maximum = float(item[6]) if item[6] else None  # 'dist_max' -> distance maximum
         velocity_relative = float(item[7]) if item[7] else None  # 'v_rel' -> relative velocity
         velocity_infinity = float(item[8]) if item[8] else None  # 'v_inf' -> infinite velocity
         magnitude = float(item[10]) if item[10] else None  # 'h' -> magnitude
@@ -135,10 +135,12 @@ def process_nasa_data(data, events_file='events.json'):
 # Run the main function
 if __name__ == "__main__":
     # Fetch data from NASA API
-    data = fetch_nasa_data_2025('nasa_CA_data_2025.json')
+    data = fetch_nasa_data_2025('src/nasa_CA_data_2025.json')
+    time.sleep(10)
     if data:
         # Process the data into the required format
-        processed_data = process_nasa_data(data, 'events.json')
+        processed_data = process_nasa_data(data, 'src/events.json')
+        json_post(processed_data, 'http://backend:8000/events')
         print("Data saved to events.json file")
     else:
         print("No data to process")
