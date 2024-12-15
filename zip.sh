@@ -13,3 +13,11 @@ echo "Compiling the report..."
 
 latexmk -cd -shell-escape -silent -pdf report/report.tex 
 cp report/report.pdf $OUTFILE
+
+# zip it (excluding useless stuff)
+echo "Zipping..."
+zip -r $OUTFILE . -x zip.sh report/\* \*.git\* img/\* *__pycache__/\* .venv/\* build/\* target/\* .vscode/\* README.md
+
+# cleanup
+echo "Cleaning up..."
+rm report.pdf

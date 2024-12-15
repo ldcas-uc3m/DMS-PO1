@@ -1,1 +1,16 @@
-\subsection{Data warehouse}
+\subsubsection{Data warehouse}
+Para el almacenamiento de datos, se optó por usar MongoDB \cite{mongodb}, dada
+su amplio uso en el campo de \textit{big data}, su facilidad para almacenar
+grandes cantidades de datos de manera distribuída, y el hecho de que es una base
+de datos no relacional.
+
+Se creó una única base de datos (\textit{jose}) con dos colecciones: una para
+los avistamientos (\textit{sightings}) y otra para los eventos astronómicos
+(\textit{astronomical-events}).
+
+Se decidió usar la versión de contenedor de Docker dado que permite una mayor
+flexibilidad en el despliegue, al mismo tiempo que está empaquetada con el resto
+de la aplicación (para más fácil distribución) y no requiere de instalación en
+el sistema.
+También se habilitó la persistencia de datos mediante un volumen de Docker, para
+así mantener los datos ya extraídos aunque se reinicie la aplicación.

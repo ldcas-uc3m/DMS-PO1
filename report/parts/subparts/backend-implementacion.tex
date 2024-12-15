@@ -1,1 +1,25 @@
 \subsubsection{Backend}
+El backend está implementado en el lenguaje de programación Rust, haciendo uso
+del \textit{framework} Rocket \cite{rocket}. Consta de un servidor web con una 
+API tipo REST, la cual se basa en el protocolo HTTP. Para la integración con
+la base de datos de MongoDB, se usó la librería de Rust que proporciona el
+propio Mongo.
+
+El servicio cuenta con dos rutas para la interacción con los dos tipos de datos
+implementados: \texttt{/sightings} y \texttt{/events}. Cada una de estas rutas
+permite tres tipos de acciones:
+\begin{itemize}
+  \item Petición \texttt{GET} a \texttt{/<tipo>}: Retorna una lista de todos los
+  elementos almacenados en base de datos correspondientes a ese tipo, realizando
+  la correspondiente consulta.
+  \item Petición \texttt{GET} a \texttt{/<tipo>/<id>}: Retorna los detalles del
+  elemento requerido.
+  \item Petición \texttt{POST} a \texttt{/<tipo>}: Almacena en base de datos el
+  elemento especificado, siguiendo el esquema definido en la
+  \subsecref{data-warehouse}.
+\end{itemize}
+
+En caso de que al devolver los elementos, éstos no cuenten con información
+sobre la localización geográfica precisa del elemento, realiza una llamada a la
+API de Mapbox \cite{mapbox-api} para obtenerla.
+
