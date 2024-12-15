@@ -43,6 +43,11 @@ services:
       - 8080:8080
     depends_on:
       - backend
+  
+  web-scrapping:
+    build: ./web-scrapping
+    depends_on:
+      - backend
 
 volumes:
   mongodb:
