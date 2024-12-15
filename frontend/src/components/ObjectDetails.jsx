@@ -1,4 +1,4 @@
-import { Flex, Box, Text, Heading } from '@chakra-ui/react';
+import { Flex, Box, Text, Heading, Link } from '@chakra-ui/react';
 
 const ObjectDetails = ({ element, ...otherProps }) => {
   let description,
@@ -68,7 +68,7 @@ const ObjectDetails = ({ element, ...otherProps }) => {
           )}
           <Box>
             <Heading>Source</Heading>
-            <Text>{source}</Text>
+            <Link href={source} target="_blank" rel="noopener noreferrer">{source}</Link>
           </Box>
         </Flex>
       )}
