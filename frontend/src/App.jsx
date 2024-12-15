@@ -136,11 +136,9 @@ async function loadElements(setSightings, setEvents) {
     const sightingsList = await response.json();
     sightingsList.map((sighting) => {
       sighting.id = sighting._id.$oid;
-      Object.keys(sighting).forEach(
-        (key) => {
-          if (!sighting[key]) delete sighting[key];
-        }
-      )
+      Object.keys(sighting).forEach((key) => {
+        if (!sighting[key]) delete sighting[key];
+      });
       delete sighting._id;
       if (sighting.time_event)
         sighting.time_event = new Date(sighting.time_event * 1000).toLocaleDateString(
@@ -172,7 +170,7 @@ async function loadElements(setSightings, setEvents) {
     eventsList.map((event) => {
       event.id = event._id.$oid;
       delete event._id;
-      event.time_event = new Date(event.time * 1000).toLocaleDateString('es-ES', {
+      event.time_event = new Date(event.time * 1000).toLocaleDateString('en-EN', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Spinner } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import ObjectListItem from './ObjectListItem';
 import { useEffect, useState } from 'react';
 
@@ -52,6 +52,10 @@ const ObjectList = ({
           <Flex flex="1 1 0" justify="center" align="center">
             <Spinner />
           </Flex>
+        ) : sightingsKeys.length == 0 ? (
+          <Flex w="100%" h="100%" align="center" justify="center">
+            <Text fontStyle="italic">No sightings available</Text>
+          </Flex>
         ) : (
           <Box overflowY="auto" flex="1 1 0">
             <ListItems
@@ -68,6 +72,10 @@ const ObjectList = ({
         {!eventsKeys ? (
           <Flex flex="1 1 0" justify="center" align="center">
             <Spinner />
+          </Flex>
+        ) : eventsKeys.length == 0 ? (
+          <Flex w="100%" h="100%" align="center" justify="center">
+            <Text fontStyle="italic">No events available</Text>
           </Flex>
         ) : (
           <Box overflowY="auto" flex="1 1 0">
