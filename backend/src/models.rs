@@ -31,13 +31,17 @@ pub struct Sighting {
 pub struct AstronomicalEvent {
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
     pub id: Option<ObjectId>,
-    pub source: String,
+    pub object_name: Option<String>,  // Name of the astronomic object or astronomic event
+    pub data_source: String,  // Name of the source for the data
     pub time: u32,  // unix timestamp (s)
-    pub distance_nominal: f64,  // au
+    pub location_aprox: Option<String>,
+    pub location_precise: Option<Vec<f64>>,  // [<longitude>, <latitude>]
+    pub altitude: Option<f64>,  // m
+    pub distance_nominal: Option<f64>,  // au
     pub distance_minimum: Option<f64>,  // au
-    pub velocity_relative: f64,  // kps
+    pub velocity_relative: Option<f64>,  // kps
     pub velocity_infinity: Option<f64>,  // kps
-    pub magnitude: f64,
-    pub diameter: Vec<f64>,  // [<min>, <max>] (m)
+    pub magnitude: Option<f64>,
+    pub diameter: Option<Vec<f64>>,  // [<min>, <max>] (m)
     pub rarity: Option<i32>,
 }
