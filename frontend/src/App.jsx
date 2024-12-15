@@ -136,6 +136,11 @@ async function loadElements(setSightings, setEvents) {
     const sightingsList = await response.json();
     sightingsList.map((sighting) => {
       sighting.id = sighting._id.$oid;
+      Object.keys(sighting).forEach(
+        (key) => {
+          if (!sighting[key]) delete sighting[key];
+        }
+      )
       delete sighting._id;
       if (sighting.time_event)
         sighting.time_event = new Date(sighting.time_event * 1000).toLocaleDateString(
