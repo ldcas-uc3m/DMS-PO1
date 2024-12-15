@@ -57,15 +57,10 @@ docker compose up --build
 ```
 Esperar un poco a que los servicios se levante y después desde un navegador buscar la url:
 ```
-frontend: http://localhost:8080
+Frontend: http://localhost:8080
 Visor mongo-express: http://localhost:8081
 ```
 Tirar abajo:
 ```
-docker compse down
-```
-
-_Fuck it, I'm out_
-```
-docker compse down -v
+docker-compose down --volumes --remove-orphans
 ```
