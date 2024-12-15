@@ -18,8 +18,13 @@ const ObjectList = ({
     if (sightings) {
       let keys = Object.keys(sightings).sort(
         (a, b) =>
-          distance(sightings[a].locationPrecise, currentPosition) -
-          distance(sightings[b].locationPrecise, currentPosition),
+          sightings[a].locationPrecise &&
+          sightings[a].locationPrecise.length == 2 &&
+          sightings[b].locationPrecise &&
+          sightings[b].locationPrecise.length == 2 // are precise locations available?
+            ? distance(sightings[a].locationPrecise, currentPosition) -
+              distance(sightings[b].locationPrecise, currentPosition)
+            : 23401, // result of distance([0.0, 90.0], [0.0, -90.0]), which is north and south pole and thus the biggest possible value)
       );
       setSightingsKeys(keys);
     }

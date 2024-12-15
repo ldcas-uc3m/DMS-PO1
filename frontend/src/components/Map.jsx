@@ -84,18 +84,23 @@ function loadMarkers(mapRef, sightings) {
     type: 'geojson',
     data: {
       type: 'FeatureCollection',
-      features: Object.keys(sightings).map((key) => {
-        return {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: sightings[key].locationPrecise,
-          },
-          properties: {
-            id: sightings[key].id,
-          },
-        };
-      }),
+      features: Object.keys(sightings)
+        .filter(
+          (key) =>
+            sightings[key].locationPrecise && sightings[key].locationPrecise.length == 2,
+        )
+        .map((key) => {
+          return {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: sightings[key].locationPrecise,
+            },
+            properties: {
+              id: sightings[key].id,
+            },
+          };
+        }),
     },
   });
 
@@ -139,7 +144,7 @@ function addOnClickToMap(mapRef, sightings, setCurrentElement) {
 }
 
 function updateViewport(mapRef, currentElement) {
-  if (currentElement.locationPrecise) {
+  if (currentElement.locationPrecise && currentElement.locationPrecise.length == 2) {
     mapRef.current.flyTo({
       center: currentElement.locationPrecise,
       zoom: 11,
