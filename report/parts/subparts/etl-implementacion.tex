@@ -1,1 +1,38 @@
 \subsubsection{ETL de datos estáticos}
+
+Para la implementación de \textit{ETL de datos estáticos} se ha creado un fichero con un programa informático empleando el lenguaje de programación \textbf{Python} y archivos CSV. 
+
+Para esta tarea se ha utilizado principalmente la librería de \textit{gestión de datos} denominada \textit{Pandas} 
+con la cual se han podido obtener muchísimos datos de interés para nuestro proyecto (eventos astronómicos, comúnmente relacionados con avistamientos de OVNIs) 
+recolectados y organizados en bases de datos de la NASA y ESA (las agencias espaciales de EUUU y la Unión Europea), 
+las cuales son coherentes, similares y en constante refresco mediante a mediciones científicas de estas organizaciones.
+
+Estos datos incluyen actualmente varios conjuntos de datos distintos, entre ellos: 
+
+\begin{itemize}
+    \item Datos de la ESA sobre asteroides realizando \textbf{close approaches} a la Tierra en el pasado o presente (nombre, tiempo del evento)
+    \item Datos de la NASA sobre asteroides realizando \textbf{close approaches} a la Tierra en el pasado o presente (nombre, tiempo del evento)
+    \item Datos de la NASA sobre \textbf{bolas de fuego} avistadas sobre la Tierra en el pasado (tiempo del evento, localización)
+    \item Datos de la NASA sobre \textbf{meteoritos} que hayan impactado contra la Tierra en el pasado (nombre, tiempo del impacto, localización, composición)
+\end{itemize}
+
+
+Otras librerías necesarias son \textit{Requests} para poder mandar los datos obtenidos mediante \textit{ETL de datos estáticos} a la base de datos. 
+La librería \textit{JSON}, ya que se ha creado un fichero de esta extensión con el cual se comprueba que no se obtengan datos de páginas ya visitadas anteriormente con el fin de evitar duplicados. 
+tra librería es \textit{Time}, la cual se utiliza para añadir breves \textit{sleeps} dentro del código para evitar sobrecargar la base de datos con peticiones, 
+y para retrasar recargas de la extracción de datos a un mínimo de 6h. 
+También se utiliza \textit{Datetime} para adaptar el formato los tiempos que se obtienen de los datos estáticos y transformarlos a formato \textit{Unix Timestamp} requerido por la base de datos. 
+Finalmente, se utiliza la librería \textit{Logging}, para registrar errores.
+
+Para la correcta obtención de los datos se ha tenido que descargar el CSV de las páginas web de la NASA y ESA. 
+A continuación, se han de extraer y corregir los datos, reestructurandolos a la estructura de objetos esperados por nuestra base de datos. 
+
+% A continuación se adjuntan unas imágenes de las páginas web para mostrar cómo es la tabla previamente mencionada y como se ven los datos una vez haces click en una de las filas de la tabla. Cabe destacar que la tabla tiene como máximo 10 filas, por lo que una vez se han leído esas 10 filas se debe pasar a una siguiente página:
+
+% POTENTIALLY INSERT SVG HERE
+
+Como ya se ha mencionado para poder realizar el \textit{ETL de datos estáticos} se ha creado un archivo de código empleando el lenguaje de programación \textbf{Python}. 
+Este archivo cuenta con cuatro funciones principales para convertir cada uno de los 4 archivos CSV, y obtienen alrededor de 3000-4000 datos, aunque se han excluido unos 40.000 datos de meteoritos para aligerar la carga en el frontend. 
+Aparte de esas funciones principales, se incluyen una gran cantidad de funciones auxiliares para convertir fechas y otros datos desde los formatos originales al esperado por la base de datos.
+
+Finalmente, una vez extraidos y convertidos al formato requerido por el \textit{backend}, se emplea un bucle \textit{for} para recorrer todos los eventos del JSON, y se enviaran al backend mediante una request de tipo \textit{Post}.

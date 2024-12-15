@@ -1,1 +1,19 @@
 \subsubsection{ETL de datos estáticos}
+
+La arquitectura de \textit{ETL de datos estáticos} en el objetivo final de este proyecto consiste en un único programa 
+en el lenguaje de programación \textit{Python}, el cual es capaz de extraer información de forma paralela de múltiples bases de datos descargadas, 
+con el fin de obtener varios datos diferentes en un menor espacio de tiempo.
+
+Al mismo tiempo, la importación de los datos se podría escalar de forma importante para cualquier base de datos sobre el tema mediante el entrenamiento de una IA de análisis de CSV, 
+ya que el principal problema consiste en identificar y establecer la correlación entre los datos del CSV y los datos esperados por el backend.
+
+Los datos de los objetos extraídos son analizados, y si se consideran relevantes se puede adaptar fácilmente la estructura de los objetos de la base de datos, 
+gracias a emplear una estructura flexible y dinámica tanto en la base de datos como en la extracción de los mismos. 
+Mediante este análisis se puede además detectar datos incorrectos o inválidos, para mantener una base de datos de calidad.
+
+Todos los CSV se guardarán añadiendose al nombre del archivo una fecha de descarga, y se registrarán los CSV exportados a base de datos mediante el registro de sus nombre en un archivo de formato json, 
+para poder comprobar que no se repiten consultas, ahorrando capacidad de computación y previniendo datos duplicados.
+
+Este método de obtención de datos se realizará semanalmente debido al gran número de datos que se descargan, y la limitada variación de los datos importados en ese periodo de tiempo. 
+A pesar de ello, se tiene en cuenta la opción de forzar una actualización por parte de los administradores del sistema, en caso de que algún evento urgente requiera actualizaciones más frecuentes.
+Para permitir este tipo de actualizaciones frecuentes, se ha empleado una arquitectura muy eficiente, capaz de procesar cantidades masivas de datos en segundos.
