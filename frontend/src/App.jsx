@@ -14,10 +14,6 @@ function App() {
   useEffect(() => {
     loadElements(setSightings, setEvents);
   }, []);
-  useEffect(() => {
-    console.log(sightings);
-    console.log(events);
-  }, [sightings, events]);
 
   const [currentElement, setCurrentElement] = useState(null);
   const [currentPosition, setCurrentPosition] = useState([-3.70329, 40.416728]);
