@@ -1,0 +1,57 @@
+\subsection{Data warehouse}
+Los datos del \textit{web scraping} serán agregados y almacenados continuamente
+en un \textit{data warehouse}. Dado que este proceso de extracción de datos es
+impreciso, los datos serán agregados por fuente, y homogeneizados a la hora de
+realizar la consulta desde el \textit{backend}.
+
+Para los datos estáticos, se usará una base de datos no relacional para agregar
+los distintos datos extraídos.
+
+Dividimos los tipos de datos en tres tipos principales: avistamientos, eventos astronómicos, e información extraída de satélites. Dado que los datos serán extraídos de distintas fuentes, todos los campos son opcionales. Los datos contendrán los siguientes campos:
+
+\subsubsection*{Avistamientos}
+\begin{itemize}
+  \item \textit{source}: fuente de los datos del avistamiento
+  \item \textit{time\_event}: fecha y hora del avistamiento
+  \item \textit{time\_post}: fecha y hora del reporte del avistamiento
+  \item \textit{location\_aprox}: localización aproximada del avistamiento (ciudad, etc.)
+  \item \textit{location\_precise}: longitud y latitud del avistamiento
+  \item \textit{distance}: distancia desde el avistamiento al objeto
+  \item \textit{altitude}: altitud del objeto
+  \item \textit{shape}: forma del objeto
+  \item \textit{size}: tamaño del objeto
+  \item \textit{features}: características del objeto
+  \item \textit{summary}: resumen del avistamiento
+  \item \textit{description}: descripción del suceso
+  \item \textit{explanation}: explicación del suceso
+  \item \textit{num\_observers}: número de observadores del suceso
+  \item \textit{media}: links a recursos (grabaciones, audios, etc.)
+\end{itemize}
+
+
+\subsubsection*{Eventos astronómicos}
+\begin{itemize}
+  \item \textit{source}: fuente de los datos del evento
+  \item \textit{time}: fecha y hora del evento
+  \item \textit{distance\_nominal}: distancia nominal entre el objeto y la tierra
+  \item \textit{distance\_minimum}: distancia mínima entre el objeto y la tierra
+  \item \textit{velocity\_relative}: velocidad a su paso por la tierra
+  \item \textit{velocity\_infinity}: velocidad a su paso por la tierra
+  \item \textit{magnitude}: magnitud del objeto
+  \item \textit{diameter}: diámetros mínimo y máximo del objeto
+  \item \textit{rarity}: rareza del objeto
+\end{itemize}
+
+
+\subsubsection*{Satélites}
+\begin{itemize}
+  \item \textit{source}: fuente de los datos del evento
+  \item \textit{location}: localización del satélite
+  \item \textit{time}: fecha y hora del suceso
+  \item \textit{content}: contenido del suceso
+  \item \textit{description}: descripción del suceso
+\end{itemize}
+
+
+En ambos casos, los procesos de extracción de datos serán los encargados de
+asegurarse de que no haya duplicación de datos.

@@ -1,1 +1,16 @@
 \subsubsection{Backend}
+El \textit{backend} es un servidor web encargado de la lógica de negocio de la 
+aplicación (usuarios, cuentas, etc.) y del acceso a los datos.
+
+Para ello, expone una interfaz al \textit{frontend} para la consulta de datos,
+la cual es extraída de las diferentes bases de datos y \textit{data warehouses}.
+
+Para la comunicación con APIs externas, el \textit{backend} será el encargado
+de comunicarse con ellas a la hora de requerir la información. Para reducir el
+número de consultas y la latencia de la aplicación, se hará uso de una caché para almacenar temporalmente los datos de estas APIs.
+
+En el caso de los datos procedentes del \textit{web scraping}, dado que estos
+datos no estarán almacenados de una forma homogénea en el \textit{data 
+warehouse}, el \textit{backend} estará encargado de filtrar y transformarlos
+correctamente a la hora de realizar cada consulta. Un ejemplo de esto es obtener
+las coordenadas geográficas de una localización.

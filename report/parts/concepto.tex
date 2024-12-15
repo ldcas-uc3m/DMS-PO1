@@ -12,40 +12,59 @@
 % de acuerdo a los esquemas descritos en la memoria, una imagen de la gráfica
 % que se corresponda con esos datos y una explicación de como se ha
 % conseguido: se ha generado con excel, a través de una librería de python …).
+Para la prueba de concepto, se ha decidido realizar una versión simplificada de
+la arquitectura general, a fin de mostrar el potencial de la aplicación final.
+
 
 \subsection{Alcance}
+Ésta versión reducida incorpora un prototipo de la interfaz de la aplicación,
+mostrando sobre un mapa geográfico los distintos eventos disponibles en la base
+de datos. Se siguen mostrando los detalles de cada elemento, así como una lista
+de elementos generales, pero no se permite la realización de filtros ni
+consultas.
 
+Se ha decidido incluír como fuentes de datos una página web sobre la que
+realizar \textit{scraping}, una base de datos estática, y una API de terceros,
+a fin de mostrar los tres tipos de extracción y agregación de datos.
 
+También se han reducido los tipos de datos recogidos a dos: avistamientos y
+eventos astronómicos, dado que la agregación de datos de satélites requiere en
+varios casos de un pago por consulta, y de la utilización de modelos de IA para
+el análisis de esos datos.
 
+Para simplificar el desarrollo de los extractores de datos, el \textit{backend}
+es el encargado de guardar en las bases de datos los contenidos, en lugar de que
+lo haga cada agregador por separado.
 
-\subsection{Objetivos}
+Por último, se ha decidido realizar un servicio específico para la extracción de
+datos de APIs a terceros, el cual se guarda en base de datos, para así reducir
+el número de consultas a las API.
 
+El resultado es una aplicación funcional que muestra la idea en funcionamiento,
+y el potencial que tiene.
 
 
 
 \subsection{Arquitectura implementada}
+La arquitectura resultante queda plasmada por la \figref{arquitectura-concepto}:
 
+\drawiosvgfigure[.7]{arquitectura-concepto}{Arquitectura de la prueba de concepto}
 
-
-
-\subsubsection{Arquitectura general}
-
-
-
-
-\subsubsection{Integración de datos}
-
-
-
-
-\subsubsection{Arquitectura funcional}
-
+Ésta arquitectura es una versión reducida y simplificada de la arquitectura 
+final. Cuenta con los mismos elementos básicos, y simplifica el camino por el
+que deben pasar los datos. Como hemos mencionado en el apartado anterior, los extractores de datos almacenan los datos a través del \textit{backend}. Se cuenta con un único \textit{data warehouse}, con separación entre tipos de datos. El \textit{frontend} consume directamente del \textit{backend} los datos
+a mostrar por pantalla, los cuales han de ser recargados manualmente.
 
 
 
 \subsection{Implementación}
+Para la implementación se ha optado por el uso de contenedores Docker, uno por
+elemento de la arquitectura, para facilitar tanto el desarrollo como el
+despliegue de la aplicación, ya que cada elemento es independiente del resto,
+permitiendo el desarrollo en distintos lenguajes de programación.
 
 \subimport{subparts/}{backend-implementacion.tex}
+\subimport{subparts/}{data-implementacion.tex}
 \subimport{subparts/}{frontend-implementacion.tex}
 \subimport{subparts/}{scraping-implementacion.tex}
 \subimport{subparts/}{etl-implementacion.tex}
@@ -54,9 +73,23 @@
 
 
 \subsection{Ejecución}
+Al estar basado en Docker y Docker Compose, para desplegar la aplicación basta
+con ejecutar el siguiente comando:
+\begin{verbatim}
+  docker compose up --build
+\end{verbatim}
 
+El cual levantará la aplicación en el puerto 8080 de la máquina local, es decir,
+en \texttt{http://localhost:8080}.
 
 
 
 \subsection{Escalabilidad}
+Al ser contenedores Docker, la arquitectura permite levantar múltiples
+instancias de cada elemento, al igual que repartir la carga entre ellos. La
+arquitectura también permite, al ser modular, que cada elemento se ejecute en
+máquinas distintas. La base de datos también puede cambiarse de un contenedor
+a un servidor dedicado, simplemente cambiando la URL a la que apunta el
+\textit{backend}.
 
+Todo esto hace que la aplicación sea robusta, segura, y escalable.
