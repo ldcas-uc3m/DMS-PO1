@@ -87,7 +87,7 @@ async fn get_coordinates_from_mapbox(location: &Option<String>, api_key: &str) -
                 if let Some(center) = first_feature["center"].as_array() {
                     let latitude = center.get(1).and_then(|v| v.as_f64()).unwrap_or_default();
                     let longitude = center.get(0).and_then(|v| v.as_f64()).unwrap_or_default();
-                    return Ok(Some(vec![latitude, longitude]));
+                    return Ok(Some(vec![longitude, latitude]));
                 }
             }
         }

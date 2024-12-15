@@ -141,13 +141,14 @@ async function loadElements(setSightings, setEvents) {
     sightingsList.map((sighting) => {
       sighting.id = sighting._id.$oid;
       delete sighting._id;
-      sighting.time_event = new Date(sighting.time_event * 1000).toLocaleDateString(
-        'es-ES',
-        { day: 'numeric', month: 'long', year: 'numeric' },
-      );
-      if (sighting.time_post)
+      if (sighting.time_event)
         sighting.time_event = new Date(sighting.time_event * 1000).toLocaleDateString(
-          'es-ES',
+          'en-EN',
+          { day: 'numeric', month: 'long', year: 'numeric' },
+        );
+      if (sighting.time_post)
+        sighting.time_post = new Date(sighting.time_post * 1000).toLocaleDateString(
+          'en-EN',
           { day: 'numeric', month: 'long', year: 'numeric' },
         );
       if (sighting.distance) sighting.distance = `${sighting.distance} m`;
