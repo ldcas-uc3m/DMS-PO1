@@ -14,4 +14,6 @@ RUN playwright install-deps
 
 COPY src/ ./src/
 
+ENV PYTHONUNBUFFERED=1
+
 CMD ["python", "src/web_scrapping.py"]

@@ -3,6 +3,7 @@ import time
 import json
 import re
 from datetime import datetime
+import logging
 from playwright.sync_api import sync_playwright
 
 def get_urls(Num,url):
@@ -72,7 +73,7 @@ def get_urls(Num,url):
                         page.wait_for_load_state('load')
 
                     except Exception as e:
-                        print(f"Error al hacer clic en la fila: {e}")
+                        logging.error(f"Error al hacer clic en la fila: {e}")
 
                     # Espera para evitar clics rápidos
                     page.wait_for_timeout(500)  # Espera 500ms
@@ -86,10 +87,10 @@ def get_urls(Num,url):
                         # Espera que la página cargue completamente
                         page.wait_for_load_state('networkidle')  # Espera que la página se cargue
                     else:
-                        print("No hay más páginas.")
+                        logging.error("No hay más páginas.")
                         break  # Si no hay más páginas, detén el ciclo
                 except:
-                    print("Error al encontrar o hacer clic en el botón 'Next'.")
+                    logging.error("Error al encontrar o hacer clic en el botón 'Next'.")
                     break  # Detener si no se puede avanzar
 
             # Cierra el navegador después de obtener todos los enlaces
@@ -108,8 +109,6 @@ def get_data(urls):
         page = browser.new_page()
         for elem in urls:
             # Navegar a la página
-
-            print("URL IS: ",elem)
             page.goto(elem)
             # Esperaramos a que el elemento de Detailed Description esté cargado
             page.wait_for_selector('.card-header:has-text("Detailed Description") + .card-body p')
@@ -119,7 +118,7 @@ def get_data(urls):
             if detailed_description_element:
                 detailed_description = detailed_description_element.text_content().strip()
             else:
-                print("Detailed Description no encontrado.")
+                logging.error("Detailed Description no encontrado.")
 
             # Extraer otros datos
             summary = page.text_content('.list-group-item span:has(i.fa-list) + span').strip()
@@ -173,17 +172,14 @@ def get_data(urls):
 
 if __name__ == '__main__':
     
-    Num = 25 #Numero de datos por iteracion
+    Num = 15 #Numero de datos por iteracion
     url = "https://ufostalker.com/ufo-sighting-list"
     try:
         while True:
             urls = get_urls(Num,url)
             get_data(urls)
-            time.sleep(300) #5 minutos
-            print("Let's refill the database!")
+            time.sleep(150) #5 minutos
+            logging.info("Let's refill the database!")
     
     except Exception as e:
-        print("Error: {}".format(e))
-        with open("src/log.json", "w") as archive:
-            #Vaciamos los datos
-            json.dump([], archive)
+        logging.error("Error: {}".format(e))
