@@ -1,1 +1,13 @@
 \subsubsection{Scraping}
+
+La arquitectura de \textit{web scraping} en las condiciones finales de este proyecto consiste en un único archivo de código programado en el lenguaje de programación python el cual es capaz de obtener información de diferentes páginas web al mismo tiempo mediante el uso de técnicas de paralelización con el fin de obtener varios datos diferentes en un menor espacio de tiempo.
+
+Al mismo tiempo, estos datos se obtienen en gran escala, pues el código está optimizado para obtener cientos de datos de cada página web por cada iteración del mismo.
+
+El HTML de todas las páginas de las que se obtiene información mediante este método es analizado con el fin de evitar cualquier posible tipo de error y obtener toda la información relevante sin problema o confusiones.
+
+Todas las URLs visitadas se guardan en uno o varios archivos de formato json para comprobar que toda URL de la que se quiera obtener información de alguna de las fuentes no ha sido visitada anteriormente, evitando así cualquier tipo de dato duplicado.
+
+Este método de obtención de datos se realiza semanalmente debido a la gran cantidad de datos que importa, además se considera que una semana es una cantidad de tiempo razonable para que las fuentes de las que se obtienen los datos se actualicen con información relevante de nuevos avistamientos o eventos astronómicos.
+
+Además se hace uso de la inteligencia artificial para analizar los diferentes archivos multimedia que se pueden extraer de las diferentes fuentes para posteriormente poder añadirlos de una mejor forma al frontend y que los usuarios puedan observarlos o escucharlos en los intervalos más interesantes obtenidos gracias a la inteligencia artificial.
