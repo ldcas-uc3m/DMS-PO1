@@ -168,7 +168,7 @@ def get_data(urls):
                     "num_observers": 1, #Porque almenos 1 persona ha tenido que observarlo e introducirlo en la página
                     "media": []
             }
-            x = requests.post("localhost:8000/sightings", json = data)
+            x = requests.post("http://backend:8000/sightings", json = data)
             time.sleep(1)
 
 if __name__ == '__main__':
@@ -180,6 +180,7 @@ if __name__ == '__main__':
             urls = get_urls(Num,url)
             get_data(urls)
             time.sleep(300) #5 minutos
+            print("Let's refill the database!")
     
     except Exception as e:
         print("Error: {}".format(e))
