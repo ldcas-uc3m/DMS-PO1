@@ -1,9 +1,10 @@
-import { Box, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spinner, Text, Button } from '@chakra-ui/react';
 import ObjectListItem from './ObjectListItem';
 import { useEffect, useState } from 'react';
 
 const ObjectList = ({
   sightings,
+  setSightings,
   events,
   currentElement,
   setCurrentElement,
@@ -37,6 +38,53 @@ const ObjectList = ({
     }
   }, [events]);
 
+  function keysSnakeToCamel(object) {
+    function snakeToCamel(str) {
+      return str
+        .toLowerCase()
+        .replace(/([-_][a-z])/g, (group) => group.slice(-1).toUpperCase());
+    }
+
+    return Object.fromEntries(
+      Object.entries(object).map(([k, v]) => [snakeToCamel(k), v]),
+    );
+  }
+
+  const handleRefresh = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/sightings');
+      if (!response.ok) {
+        throw new Error(`Response status ${response.status}`);
+      }
+  
+      const sightings = {};
+      const sightingsList = await response.json();
+      sightingsList.map((sighting) => {
+        sighting.id = sighting._id.$oid;
+        Object.keys(sighting).forEach((key) => {
+          if (!sighting[key]) delete sighting[key];
+        });
+        delete sighting._id;
+        if (sighting.time_event)
+          sighting.time_event = new Date(sighting.time_event * 1000).toLocaleDateString(
+            'en-EN',
+            { day: 'numeric', month: 'long', year: 'numeric' },
+          );
+        if (sighting.time_post)
+          sighting.time_post = new Date(sighting.time_post * 1000).toLocaleDateString(
+            'en-EN',
+            { day: 'numeric', month: 'long', year: 'numeric' },
+          );
+        if (sighting.distance) sighting.distance = `${sighting.distance} m`;
+        if (sighting.altitude) sighting.altitude = `${sighting.altitude} m`;
+        sightings[sighting.id] = keysSnakeToCamel(sighting);
+      });
+      setSightings(sightings);
+    } catch (error) {
+      console.error(`Error while loading sightings: ${error.message}`);
+    }
+  };
+
   return (
     <Flex
       direction="column"
@@ -48,6 +96,9 @@ const ObjectList = ({
     >
       <Flex direction="column" flex="1 1 0" gap="2">
         <Heading alignSelf="center">Sightings</Heading>
+        <Button colorScheme="blue" size="sm" onClick={handleRefresh}>
+          Refresh
+        </Button>
         {!sightingsKeys ? (
           <Flex flex="1 1 0" justify="center" align="center">
             <Spinner />

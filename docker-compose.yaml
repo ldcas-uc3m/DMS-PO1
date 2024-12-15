@@ -48,6 +48,10 @@ services:
     build: ./web-scrapping
     depends_on:
       - backend
+  csv-importing:
+    build: ./csv-importing
+    depends_on:
+      - backend
 
 volumes:
   mongodb:

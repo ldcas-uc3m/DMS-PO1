@@ -4,6 +4,7 @@ from datetime import datetime
 import time
 import requests
 import logging
+from math import isnan
 
 # Función para convertir fecha y hora de datetime UTC a timestamp Unix
 def utc_HM_to_unix(utc_string):
@@ -142,7 +143,7 @@ def json_post(data, URL_DATABASE):
 # PROCESADO DE ARCHIVOS PARA CONVERTIRLOS A JSON ACEPTADO POR DATABASE
 def process_csv_ESA_CA(file_path):
     # Read the CSV and convert it into a dataframe
-    df = pd.read_csv(file_path)
+    df = pd.read_csv("src/" + file_path)
 
     # From the dataframe, read each row (an event), and convert it into the format required by the database. 
     events = []
@@ -174,9 +175,12 @@ def process_csv_ESA_CA(file_path):
 
     return events
 
+def clean_event(event):
+    return {k: v for k, v in event.items() if not (isinstance(v, float) and isnan(v))}
+
 def process_csv_NASA_CA(file_path):
     # Read the CSV and convert it into a dataframe 
-    df = pd.read_csv(file_path)
+    df = pd.read_csv("src/" + file_path)
 
     # From the dataframe, read each row (an event), and convert it into the format required by the database. 
     events = []
@@ -191,17 +195,19 @@ def process_csv_NASA_CA(file_path):
             "location_aprox": None,  # No está en el CSV
             "location_precise": None,  # No está en el CSV
             "altitude": None,  # No está en el CSV
-            "distance_nominal": float(row["CA DistanceNominal (au)"]),
-            "distance_minimum": float(row["CA DistanceMinimum (au)"]),
-            "velocity_relative": float(row["V relative(km/s)"]),
-            "velocity_infinity": float(row["V infinity(km/s)"]),
-            "magnitude": float(row["H(mag)"]),
+            "distance_nominal": float(row.get("CA DistanceNominal (au)", 0) or 0),
+            "distance_minimum": float(row.get("CA DistanceMinimum (au)", 0) or 0),
+            "velocity_relative": float(row.get("V relative(km/s)", 0) or 0),
+            "velocity_infinity": float(row.get("V infinity(km/s)", 0) or 0),
+            "magnitude": float(row.get("H(mag)", 0) or 0),
             "diameter": process_diameter_NASA(row["Diameter"]),
             "rarity": int(row["Rarity"]) if not pd.isna(row["Rarity"]) else None
         }
         #print(event)
         events.append(event)
     print(events)
+
+    events = [clean_event(event) for event in events]
 
     # Guardar como archivo JSON
     json_save(events, json_file='events.json')
@@ -210,7 +216,7 @@ def process_csv_NASA_CA(file_path):
 
 def process_csv_NASA_CA_Fireball(file_path):
     # Read the CSV and convert it into a dataframe
-    df = pd.read_csv(file_path)
+    df = pd.read_csv("src/" + file_path)
     # From the dataframe, read each row (an event), and convert it into the format required by the database.
     events = []
     print("reading NASA CA fireball")
@@ -230,7 +236,7 @@ def process_csv_NASA_CA_Fireball(file_path):
                 "data_source": "NASA CA Fireball",
                 "time": utc_HMS_to_unix(row["Peak Brightness Date/Time (UT)"]),
                 "location_aprox": None,  # No está en el CSV
-                "location_precise": [latitude, longitude],  # Convertir dos columnas en un vector para base de datos
+                "location_precise": [longitude, latitude],  # Convertir dos columnas en un vector para base de datos
                 "altitude": altitude_km*1000,  # Convertir de kilómetros (original) a metros (base de datos)
                 "distance_nominal": distance_AU,
                 "distance_minimum": distance_AU,
@@ -244,6 +250,8 @@ def process_csv_NASA_CA_Fireball(file_path):
             events.append(event)
     print(events)
 
+    events = [clean_event(event) for event in events]
+
     # Guardar como archivo JSON
     json_save(events, json_file='events.json')
 
@@ -251,7 +259,7 @@ def process_csv_NASA_CA_Fireball(file_path):
 
 def process_csv_NASA_CA_Meteorite(file_path):
     # Read the CSV and convert it into a dataframe 
-    df = pd.read_csv(file_path)
+    df = pd.read_csv("src/" + file_path)
 
     # From the dataframe, read each row (an event), and convert it into the format required by the database. 
     events = []
@@ -270,7 +278,7 @@ def process_csv_NASA_CA_Meteorite(file_path):
                 "data_source": "NASA CA Meteorites",
                 "time": year_to_unix_timestamp(row["year"]),  # row["year"] is a float.
                 "location_aprox": row["name"],
-                "location_precise": [latitude, longitude],  # Convertir dos columnas en un vector para base de datos
+                "location_precise": [longitude, latitude],  # Convertir dos columnas en un vector para base de datos
                 "altitude": float(0),  # No está en el CSV
                 "distance_nominal": float(0),  # No está en el CSV
                 "distance_minimum": float(0),  # No está en el CSV
@@ -283,6 +291,8 @@ def process_csv_NASA_CA_Meteorite(file_path):
             #print(event)
             events.append(event)
     print(events)
+
+    events = [clean_event(event) for event in events]
 
     # Guardar como archivo JSON
     json_save(events, json_file='events.json')
@@ -360,7 +370,7 @@ GeoLocation  // latitude and longitude as geolocation "(latitude, longitude)"
 
 if __name__ == '__main__':
     
-    URL_DATABASE= "localhost:8000/events"
+    URL_DATABASE= "http://backend:8000/events"
     events_dir = 'events.json'
 
     #Empty old data, avoid overloading JSON

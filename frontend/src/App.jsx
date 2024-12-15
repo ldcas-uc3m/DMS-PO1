@@ -67,6 +67,7 @@ function App() {
             minW="20rem"
             flex="1"
             sightings={sightings}
+            setSightings={setSightings}
             events={events}
             currentElement={currentElement}
             setCurrentElement={setCurrentElement}
@@ -177,10 +178,9 @@ async function loadElements(setSightings, setEvents) {
       });
       event.distance_nominal = `${event.distance_nominal} AU`;
       if (event.distance_minimum) event.distance_minimum = `${event.distance_minimum} AU`;
-      event.velocity_relative = `${event.velocity_relative} kps`;
-      if (event.velocity_infinity)
-        event.velocity_infinity = `${event.velocity_infinity} kps`;
-      event.diameter = [`${event.diameter[0]} m`, `${event.diameter[1]} m`];
+      if (event.velocity_relative) event.velocity_relative = `${event.velocity_relative} kps`;
+      if (event.velocity_infinity) event.velocity_infinity = `${event.velocity_infinity} kps`;
+      if (event.diameter) event.diameter = [`${event.diameter[0]} m`, `${event.diameter[1]} m`];
       events[event.id] = keysSnakeToCamel(event);
     });
     setEvents(events);
