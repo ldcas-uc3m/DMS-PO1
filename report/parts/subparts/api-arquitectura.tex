@@ -1,1 +1,15 @@
 \subsubsection{APIs externas}
+
+La arquitectura de \textit{APIs externas} en el objetivo final de este proyecto consiste en un único programa en el lenguaje de programación \textbf{Python}, 
+el cual será capaz de extraer información de forma precisa y paralela de múltiples bases de datos accesibles mediante APIs con una interfaz sencilla e intuitiva, 
+con el fin de permitir seleccionar los datos deseados de forma filtrada, sin necesidad de filtrar los datos almacenados, 
+reduciendo la carga en nuestros servidores a cambio de un incremento en el coste de comunicaciones y del coste en los servidores de la API. 
+
+Además, se planea automatizar mediante funciones más avanzadas y con asistencia de IA las llamadas de API, para permitir llamadas más precisas y sencillas, pero increíblemente eficaces.
+
+Los datos de los objetos extraídos son analizados, y si se consideran relevantes se puede adaptar fácilmente la estructura de los objetos de la base de datos, 
+gracias a emplear una estructura flexible y dinámica tanto en la base de datos como en la extracción de los mismos. 
+Mediante este análisis se puede además detectar datos incorrectos o inválidos, para mantener una base de datos de calidad.
+
+Este método de obtención de datos se realizará cuando se requiera, no de forma periódica, debido al gran rango de tamaño de datos que se descargan, acorde a la petición realizada . 
+Para permitir actualizaciones frecuentes, se ha empleado una arquitectura muy eficiente, capaz de procesar cantidades masivas de datos en segundos, aunque limitada por la velocidad de comunicación y de procesamiento del server API.

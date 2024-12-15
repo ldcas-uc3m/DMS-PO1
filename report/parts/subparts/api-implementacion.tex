@@ -1,1 +1,37 @@
 \subsubsection{APIs externas}
+
+Para la implementación de \textit{APIs externas} se ha creado un fichero con un programa informático empleando el lenguaje de programación \textbf{Python}.
+
+Para esta tarea se ha utilizado principalmente la librería de \textit{gestión de datos} denominada \textit{JSON} 
+que nos ha servido para convertir el archivo de formato JSON recibido de la llamada API a el JSON en el formato esperado por la base de datos.
+
+De esta forma extraemos datos de interés para nuestro proyecto (eventos astronómicos, comúnmente relacionados con avistamientos de OVNIs) 
+recolectados y organizados en una base de datos de la NASA (la agencia espacial de Estados Unidos) de forma coherente y en constante refresco 
+mediante a mediciones científicas de estas organizaciones.
+
+La llamada API nos permite seleccionar de forma precisa los datos que deseamos, filtrando acorde a una API que permite un ajuste muy preciso.
+Los datos incluyen actualmente un sólo conjunto de datos distintos, importados desde \url{https://ssd-api.jpl.nasa.gov/cad.api?date-min=2025-01-01&date-max=2026-01-01&dist-max=0.01}
+
+\begin{itemize}
+    \item Datos de la NASA sobre asteroides realizando \textbf{close approaches} más cercanos a 0,01 AU a la Tierra en 2025 (nombre, tiempo del evento)
+\end{itemize}
+
+
+Otras librerías necesarias son \textit{Requests} para poder mandar los datos obtenidos mediante \textit{APIs externas} a la base de datos. 
+Otra librería es \textit{Time}, la cual se utiliza para añadir un brve \textit{sleep} dentro del código para evitar sobrecargar la base de datos con peticiones.
+También se utiliza \textit{Datetime} para adaptar el formato los tiempos que se obtienen de los datos estáticos y transformarlos a formato \textit{Unix Timestamp} requerido por la base de datos. 
+Finalmente, se utiliza la librería \textit{Logging}, para registrar errores.
+
+Para la correcta obtención de los datos se ha elaborado una petición de API de forma manual. 
+A continuación, se han de extraer y corregir los datos, reestructurandolos a la estructura de objetos esperados por nuestra base de datos. 
+
+% A continuación se adjuntan unas imágenes de las páginas web para mostrar cómo es la tabla previamente mencionada y como se ven los datos una vez haces click en una de las filas de la tabla. Cabe destacar que la tabla tiene como máximo 10 filas, por lo que una vez se han leído esas 10 filas se debe pasar a una siguiente página:
+
+% POTENTIALLY INSERT SVG HERE
+
+Como ya se ha mencionado para poder realizar el \textit{APIs externas} se ha creado un archivo de código empleando el lenguaje de programación \textbf{Python}. 
+Este archivo cuenta con una función principal para realizar la única llamada API y convertir los datos recibidos del JSON al formato deseado, 
+obteniendo alrededor de una docena de datos por la petición tan precisa realizada (\textit{Close Approaches} inferiores al 1\% de la distancia al sol, en el periodo de 1 año).
+Aparte de esas funciones principales, se incluyen unas pocas funciones auxiliares para convertir fechas y otros datos desde los formatos originales al esperado por la base de datos.
+
+Finalmente, una vez extraidos y convertidos al formato requerido por el \textit{backend}, se emplea un bucle \textit{for} para recorrer todos los eventos del JSON, y se enviaran al backend mediante una request de tipo \textit{Post}.

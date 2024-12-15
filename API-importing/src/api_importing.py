@@ -38,7 +38,7 @@ def json_post(data, URL_DATABASE):
         # print(response.json())
 
 
-# Function to fetch CAD data from NASA API for the year 1975
+# Function to fetch CA data from NASA API for the year 2025 that come closer than 0.01 astronomic units (1 AU = 1 distance to the sun)
 def fetch_nasa_data_2025(nasa_api_file='src/nasa_CA_data_2025.json'):
     url = "https://ssd-api.jpl.nasa.gov/cad.api?date-min=2025-01-01&date-max=2026-01-01&dist-max=0.01"
     response = requests.get(url)

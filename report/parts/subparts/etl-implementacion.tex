@@ -10,17 +10,16 @@ las cuales son coherentes, similares y en constante refresco mediante a medicion
 Estos datos incluyen actualmente varios conjuntos de datos distintos, entre ellos: 
 
 \begin{itemize}
-    \item Datos de la ESA sobre asteroides realizando \textbf{close approaches} a la Tierra en el pasado o presente (nombre, tiempo del evento)
-    \item Datos de la NASA sobre asteroides realizando \textbf{close approaches} a la Tierra en el pasado o presente (nombre, tiempo del evento)
-    \item Datos de la NASA sobre \textbf{bolas de fuego} avistadas sobre la Tierra en el pasado (tiempo del evento, localización)
-    \item Datos de la NASA sobre \textbf{meteoritos} que hayan impactado contra la Tierra en el pasado (nombre, tiempo del impacto, localización, composición)
+    \item Datos de la ESA sobre asteroides realizando \textbf{close approaches} a la Tierra en el pasado o presente (nombre, tiempo del evento). \cite{esa-neo-db}
+    \item Datos de la NASA sobre asteroides realizando \textbf{close approaches} a la Tierra en el pasado o presente (nombre, tiempo del evento). \cite{nasa-cneos-db}
+    \item Datos de la NASA sobre \textbf{bolas de fuego} avistadas sobre la Tierra en el pasado (tiempo del evento, localización). \cite{nasa-fireballs-db}
+    \item Datos de la NASA sobre \textbf{meteoritos} que hayan impactado contra la Tierra en el pasado (nombre, tiempo del impacto, localización, composición). \cite{nasa-meteorite-db}
 \end{itemize}
 
 
-Otras librerías necesarias son \textit{Requests} para poder mandar los datos obtenidos mediante \textit{ETL de datos estáticos} a la base de datos. 
-La librería \textit{JSON}, ya que se ha creado un fichero de esta extensión con el cual se comprueba que no se obtengan datos de páginas ya visitadas anteriormente con el fin de evitar duplicados. 
-tra librería es \textit{Time}, la cual se utiliza para añadir breves \textit{sleeps} dentro del código para evitar sobrecargar la base de datos con peticiones, 
-y para retrasar recargas de la extracción de datos a un mínimo de 6h. 
+Otras librerías necesarias son \textit{Requests} para poder insertar los datos obtenidos mediante \textit{ETL de datos estáticos} a la base de datos. 
+La librería \textit{JSON} ha sido de gran importacia también, ya que se requiere usar este formato para insertar datos en la base de datos. 
+Otra librería es \textit{Time}, la cual se utiliza para añadir breves \textit{sleeps} dentro del código para evitar sobrecargar la base de datos con peticiones. 
 También se utiliza \textit{Datetime} para adaptar el formato los tiempos que se obtienen de los datos estáticos y transformarlos a formato \textit{Unix Timestamp} requerido por la base de datos. 
 Finalmente, se utiliza la librería \textit{Logging}, para registrar errores.
 
