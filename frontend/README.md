@@ -24,3 +24,11 @@ Note: Using React.StrictMode, every component is mounted twice. This is intended
 | `npm run preview`  | Preview build from `./dist/` locally         |
 | `npm run prettier` | Reformat all code according to `.prettierrc` |
 | `npm run lint`     | Basic linting (default configuration)        |
+
+
+## Deployment w/ docker compose
+Deployment in <localhost:8080>:
+
+```
+docker compose up -d frontend
+```

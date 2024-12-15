@@ -50,27 +50,10 @@ Se pide:
 ## Uso
 Requiere tener [docker](https://docker.com) instalado.
 
-Levantar backend ([localhost:8000](localhost:8000)):
-```
-docker compose up -d backend
-```
-
-Levantar backend ([localhost:8000](localhost:8000)) y frontend ([localhost:8080](localhost:8080)):
-
-~~~
-docker compose up -d frontend
-~~~
-
-Levantar interfaz-web de MongoDB mongo-express ([localhost:8081](localhost:8081)):
-
-~~~
-docker compose up -d mongo-express
-~~~
-
-Levantar todas:
+Levantar todo:
 
 ```
-docker compose up -d frontend mongo-express
+docker compose up --build
 ```
 
 Tirar abajo:
@@ -78,7 +61,7 @@ Tirar abajo:
 docker compse down
 ```
 
-Fuck it, I'm out
+_Fuck it, I'm out_
 ```
 docker compse down -v
 ```
